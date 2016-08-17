@@ -13,10 +13,12 @@ public class Segurado extends Pessoa{
 	private String classe;
 	private String numeroRG;
 	private String orgaoExpedidorRG;
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + ((bairro == null) ? 0 : bairro.hashCode());
 		result = prime * result + ((cep == null) ? 0 : cep.hashCode());
 		result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
@@ -37,7 +39,7 @@ public class Segurado extends Pessoa{
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -114,7 +116,6 @@ public class Segurado extends Pessoa{
 			return false;
 		return true;
 	}
-
 	@Override
 	public String toString() {
 		return "Segurado [classe=" + classe + ", numeroRG=" + numeroRG + ", orgaoExpedidorRG=" + orgaoExpedidorRG

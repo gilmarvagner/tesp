@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.unibh.seguros.entidades.Segurado;
-import br.unibh.seguros.entidades.Setor;
+
 
 public class TesteSegurado {
 	
@@ -12,20 +12,20 @@ public class TesteSegurado {
 	@Test
 	public void testeCriacaoSegurado(){
 		
-			Segurado o = new Segurado(1L,"Recursos Humanos","RH",null,null, null, null, null, null, null);
+			Segurado o = new Segurado(1L,"João","M","11111111111",null, null, null, null, null, null);
 			System.out.println(o);
 			Assert.assertNotNull(o);		
 		
 	}
 	
 	@Test 
-	public void testeComparacaoSetor(){
+	public void testeComparacaoSegurado(){
 		
 		
-		Setor o = new Setor (1L,"Recursos Humanos", "RH", null, null);
-		Setor o2 = new Setor (1L,"Recursos Humanos","RH", null, null);
+		Segurado o = new Segurado (1L,"Joao", "M", "11111111111", null, null, null, null, null, null);
+		Segurado o2 = new Segurado (1L,"Joao","M", "11111111111", null, null, null, null, null, null);
 		Assert.assertTrue(o.equals(o2));
-		Setor o3 = new Setor (2L,"Operações","op",null,null);
+		Segurado o3 = new Segurado (2L,"Maria","F","11111111111",null, null, null, null, null, null);
 		Assert.assertFalse(o.equals(o3));
 		
 		
