@@ -2,23 +2,54 @@ package br.unibh.seguros.entidades;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+@Entity
+@Table(name="tb_funcionario")
+
 public class Funcionario extends Pessoa {
 	
 	
 	public Funcionario(Long id, String nome, String sexo, String cpf, String telefoneComercial,
 			String telefoneResidencial, String telefoneCelular, String email, Date dataNascimento, Date dataCadastro) {
 		super(id, nome, sexo, cpf, telefoneComercial, telefoneResidencial, telefoneCelular, email, dataNascimento,
-				dataCadastro);
+				dataCadastro, null);
 		// TODO Auto-generated constructor stub
 	}
-	private String setor;
+	
+	@ManyToOne
+	private Setor setor;
+	
+	
+	@NotBlank
+	@Size (max=30)
+	@Pattern(regexp="[A-zÀ-ú ]*",message="Deverá ter apenas Letras e Espaço")
+	@Column (length=30, nullable=false)
 	private String perfil;
+	
+	@NotBlank
+	@Pattern(regexp="[A-z0-9]*",message="Não deve ter caracteres especiais e espaços")
+	@Size(min=8,max=15)
+	@Column (length=15, nullable=false)
 	private String login;
+	
+	
+	@Size(max=100)
+	@Column (length=100, nullable=false)
 	private String senha;
-	public String getSetor() {
+	
+
+	
+	public Setor getSetor() {
 		return setor;
 	}
-	public void setSetor(String setor) {
+	public void setSetor(Setor setor) {
 		this.setor = setor;
 	}
 	public String getPerfil() {
@@ -39,9 +70,6 @@ public class Funcionario extends Pessoa {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
-
-	
 	@Override
 	public String toString() {
 		return "Funcionario [perfil=" + perfil + ", login=" + login + ", senha=" + senha + ", toString()="

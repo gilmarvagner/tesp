@@ -1,19 +1,110 @@
 package br.unibh.seguros.entidades;
 
 import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+@Entity
+@Table(name="tb_segurado")
 
 public class Segurado extends Pessoa{
 	
 	public Segurado(Long id, String nome, String sexo, String cpf, String telefoneComercial, String telefoneResidencial,
 			String telefoneCelular, String email, java.sql.Date dataNascimento, java.sql.Date dataCadastro) {
 		super(id, nome, sexo, cpf, telefoneComercial, telefoneResidencial, telefoneCelular, email, dataNascimento,
-				dataCadastro);
+				dataCadastro, null);
 		// TODO Auto-generated constructor stub
 	}
+	
+	@NotBlank
+	@Pattern(regexp="[A-Z]*",message="Não deve ter caracteres especiais, espaços e letras Minusculas")
+	@Column (columnDefinition="CHAR(1)", nullable=false)
 	private String classe;
+	
+	@NotBlank
+	@Pattern(regexp="[0-9]*", message = "Somente Numeros")
+	@Size(max=10) 
+	@Column (name="numero_rg", length = 10, nullable=false) 
 	private String numeroRG;
+	
+	
+	@NotBlank
+	@Pattern(regexp="[A-Z/-]*",message="Apenas Letras Maiusculas")
+	@Size(max=30)
+	@Column (name="orgao_expedidor_rg", length = 50, nullable=false)
 	private String orgaoExpedidorRG;
-
+	
+	@NotBlank
+	@Pattern(regexp="[0-9]*", message = "Somente Numeros")
+	@Size(max=30)
+	@Column (name="numero_habilitacao", length = 20, nullable=false)
+	private String numeroHabilitacao;
+	
+	@NotBlank
+	@Pattern(regexp="[ABCDE]*",message="Apenas A, B, C, D e E")
+	@Column (name="tipo_habilitacao", columnDefinition="CHAR(1)", nullable=false)
+	private String tipoHabilitacao;
+	
+	@NotBlank
+	@Column (name="data_validade_habilitacao", nullable=false )
+	@Temporal (TemporalType.DATE)
+	private Date dataValidadeHabilitacao;
+	
+	@NotBlank
+	@Past
+	@Column (name="data_primeira_abilitacao", nullable=false)
+	@Temporal (TemporalType.DATE)
+	private Date dataPrimeiraHabilitacao;
+	
+	@NotBlank
+	@Pattern(regexp="[A-zÀ-ú ]*",message="Deverá ter apenas Letras e Espaço")
+	@Size(max=150)
+	@Column (length = 150, nullable=false)
+	private String logradouro;
+	
+	@NotBlank
+	@Pattern(regexp="[A-zÀ-ú ]*",message="Deverá ter apenas Letras e Espaço")
+	@Size (max=30)
+	@Column (length = 30, nullable=false)
+	private String numero;
+	
+	@Pattern(regexp="[A-zÀ-ú ]*",message="Deverá ter apenas Letras e Espaço")
+	@Size (max=100)
+	@Column (length = 100)
+	private String complemento;
+	
+	@Pattern(regexp="[\\d{5}[-]\\d{2}]")
+	@Column (columnDefinition="CHAR(10)", nullable=false)
+	private String cep;
+	
+	@Pattern(regexp="[A-zÀ-ú ]*",message="Deverá ter apenas Letras e Espaço")
+	@Size(max=50)
+	@Column (length = 50, nullable=false)
+	private String bairro;
+	
+	@Pattern(regexp="[A-zÀ-ú ]*",message="Deverá ter apenas Letras e Espaço")
+	@Size(max=100)
+	@Column (length = 100, nullable=false)
+	private String cidade;
+	
+	@Pattern(regexp="[A-Z ]")
+	@Size(max=2,min=2)
+	@Column (columnDefinition="CHAR(2)", nullable=false)
+	private String estado;
+	
+	@OneToMany(mappedBy="segurado")
+	private Set<Proposta> proposta;
+	
 
 	@Override
 	public int hashCode() {
@@ -125,6 +216,7 @@ public class Segurado extends Pessoa{
 				+ complemento + ", cep=" + cep + ", bairro=" + bairro + ", cidade=" + cidade + ", estado=" + estado
 				+ ", toString()=" + super.toString() + "]";
 	}
+
 	public String getClasse() {
 		return classe;
 	}
@@ -209,16 +301,12 @@ public class Segurado extends Pessoa{
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	private String numeroHabilitacao;
-	private String tipoHabilitacao;
-	private Date dataValidadeHabilitacao;
-	private Date dataPrimeiraHabilitacao;
-	private String logradouro;
-	private String numero;
-	private String complemento;
-	private String cep;
-	private String bairro;
-	private String cidade;
-	private String estado;
+	public Set<Proposta> getPropostaa() {
+		return proposta;
+	}
+	public void setPropostas(Set<Proposta> propostaa) {
+		this.proposta = propostaa;
+	}
+
 
 }

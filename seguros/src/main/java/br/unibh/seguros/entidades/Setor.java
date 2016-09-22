@@ -2,6 +2,24 @@ package br.unibh.seguros.entidades;
 
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Version;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+@Entity
+
+@Table(name="tb_setor")
 public class Setor {
 	
 	public Setor(Long id, String nome, String sigla, Setor setorSuperior, Set<Funcionario> funcionarios) {
@@ -12,11 +30,35 @@ public class Setor {
 		this.setorSuperior = setorSuperior;
 		this.funcionarios = funcionarios;
 	}
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@PrimaryKeyJoinColumn
+	@Column (unique=true)
 	private Long id;
+	
+	@NotBlank
+	@Pattern(regexp="[A-zÀ-ú .']*",message="Apenas caracteres de A à Z maiúsculos ou minúsculos, com ou sem acentuação, além dos caracteres de espaço, ponto e aspas simples.")
+	@Size(min=3,max=150) 
+	@Column (length = 150, nullable=false)
 	private String nome;
+	
+	@NotBlank
+	@Pattern(regexp="[A-Z]*",message="Deverá ter apenas Letras maiúsculos sem espaços")
+	@Size (min=2,max=10)
+	@Column (length = 10, nullable=false)
 	private String sigla;
+	
+	
+	@OneToOne
+	@JoinColumn (name="setor_superior")
 	private Setor setorSuperior;
+	
+	@OneToMany(mappedBy="setor")
 	private Set<Funcionario> funcionarios;
+	
+	@Version
+	private Long version;
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -99,5 +141,13 @@ public class Setor {
 	public void setFuncionarios(Set<Funcionario> funcionarios) {
 		this.funcionarios = funcionarios;
 	}
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+	
+	
 
 }

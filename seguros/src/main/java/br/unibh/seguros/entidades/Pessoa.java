@@ -1,40 +1,88 @@
 package br.unibh.seguros.entidades;
 
-import java.sql.Date;
+
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Version;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.br.CPF;
+
+@Entity @Inheritance(strategy=InheritanceType.JOINED)
+@Table(name="tb_pessoa")
+
+
 
 public abstract class Pessoa {
-	
-	public Pessoa(Long id, String nome, String sexo, String cpf, String telefoneComercial, String telefoneResidencial,
-			String telefoneCelular, String email, Date dataNascimento, Date dataCadastro) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.sexo = sexo;
-		this.cpf = cpf;
-		this.telefoneComercial = telefoneComercial;
-		this.telefoneResidencial = telefoneResidencial;
-		this.telefoneCelular = telefoneCelular;
-		this.email = email;
-		this.dataNascimento = dataNascimento;
-		this.dataCadastro = dataCadastro;
-	}
+		
+	@Id 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@PrimaryKeyJoinColumn
 	private Long id;
+	
+	@Column (length = 100, nullable=false)
+	@NotBlank
+	@Pattern(regexp="[A-zÀ-ú .']*",message="Deverá ter apenas Letras e Espaço")
+	@Size(min=3,max=100)
 	private String nome;
+	
+	@NotBlank
+	@Pattern(regexp="[MF]{1}")
+	@Column (columnDefinition="CHAR(1)", nullable=false)
 	private String sexo;
+	
+	@NotBlank
+	@CPF
+	@Column (columnDefinition="CHAR(11)", nullable=false, unique=true)
 	private String cpf;
+	
+	@Pattern(regexp="\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}")
+	@Column (name="telefone_comercial", columnDefinition="CHAR(14)",nullable=false )
 	private String telefoneComercial;
+	
+	@Pattern(regexp="\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}")
+	@Column (name="telefone_residencial", columnDefinition="CHAR(14)", nullable=false)
 	private String telefoneResidencial;
+	
+	@Pattern(regexp="\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}")
+	@Column (name="telefone_celular", columnDefinition="CHAR(14)", nullable=false)
 	private String telefoneCelular;
+	
+	@Email
+	@Size(max=100)
+	@Column (length=100)
 	private String email;
+	
+	@NotBlank
+	@Past
+	@Column (name="data_nascimento", nullable=false)
+	@Temporal (TemporalType.DATE)
 	private Date dataNascimento;
+	
+	@NotBlank
+	@Past
+	@Column (name="data_cadastro", nullable=false)
+	@Temporal (TemporalType.TIMESTAMP)
 	private Date dataCadastro;
-	@Override
-	public String toString() {
-		return "Pessoa [id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", cpf=" + cpf + ", telefoneComercial="
-				+ telefoneComercial + ", telefoneResidencial=" + telefoneResidencial + ", telefoneCelular="
-				+ telefoneCelular + ", email=" + email + ", dataNascimento=" + dataNascimento + ", dataCadastro="
-				+ dataCadastro + "]";
-	}
+	
+	@Version
+	private Long version;
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -49,6 +97,7 @@ public abstract class Pessoa {
 		result = prime * result + ((telefoneCelular == null) ? 0 : telefoneCelular.hashCode());
 		result = prime * result + ((telefoneComercial == null) ? 0 : telefoneComercial.hashCode());
 		result = prime * result + ((telefoneResidencial == null) ? 0 : telefoneResidencial.hashCode());
+		result = prime * result + ((version == null) ? 0 : version.hashCode());
 		return result;
 	}
 	@Override
@@ -110,7 +159,34 @@ public abstract class Pessoa {
 				return false;
 		} else if (!telefoneResidencial.equals(other.telefoneResidencial))
 			return false;
+		if (version == null) {
+			if (other.version != null)
+				return false;
+		} else if (!version.equals(other.version))
+			return false;
 		return true;
+	}
+	public Pessoa(Long id, String nome, String sexo, String cpf, String telefoneComercial, String telefoneResidencial,
+			String telefoneCelular, String email, Date dataNascimento, Date dataCadastro, Long version) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.sexo = sexo;
+		this.cpf = cpf;
+		this.telefoneComercial = telefoneComercial;
+		this.telefoneResidencial = telefoneResidencial;
+		this.telefoneCelular = telefoneCelular;
+		this.email = email;
+		this.dataNascimento = dataNascimento;
+		this.dataCadastro = dataCadastro;
+		this.version = version;
+	}
+	@Override
+	public String toString() {
+		return "Pessoa [id=" + id + ", nome=" + nome + ", sexo=" + sexo + ", cpf=" + cpf + ", telefoneComercial="
+				+ telefoneComercial + ", telefoneResidencial=" + telefoneResidencial + ", telefoneCelular="
+				+ telefoneCelular + ", email=" + email + ", dataNascimento=" + dataNascimento + ", dataCadastro="
+				+ dataCadastro + ", version=" + version + "]";
 	}
 	public Long getId() {
 		return id;
@@ -172,7 +248,10 @@ public abstract class Pessoa {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-	
-
-
+	public Long getVersion() {
+		return version;
+	}
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 }
