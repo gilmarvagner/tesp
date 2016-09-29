@@ -18,6 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -32,12 +33,12 @@ public class Proposta {
 	@PrimaryKeyJoinColumn
 	private Long id;
 	
-	@NotBlank
+	@NotNull
 	@Column (nullable=false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
 	
-	@Pattern(regexp="[A-Z]")
+	@Pattern(regexp="[A-Z]{1}")
 	@Size(max=1,min=1)
 	@Column (columnDefinition="CHAR(1)", nullable=false)
 	private String classe;
@@ -48,38 +49,38 @@ public class Proposta {
 	@Column (name="codigo_susep", columnDefinition="CHAR(15)", unique=true)
 	private String codigoSusep;
 	
-	@NotBlank
+	@NotNull
 	@DecimalMin("0.01")
 	@Column (name="valor_segurado", columnDefinition="DECIMAL(14,2)", nullable=false)
 	private BigDecimal valorSegurado;
 	
-	@NotBlank
+	@NotNull
 	@DecimalMin("0.01")
 	@Column (name="valor_franquia", columnDefinition="DECIMAL(14,2)", nullable=false)
 	private BigDecimal valorFranquia;
 	
 	
-	@NotBlank
+	@NotNull
 	@Column (name="data_inicio_vigencia", nullable=false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataInicioVigencia;
 	
 	
-	@NotBlank
+	@NotNull
 	@Column (name="data_termino_vigencia", nullable=false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataTerminoVigencia;
 	
-	@NotBlank
+	@NotNull
 	@Column (name="carencia_em_meses", nullable=false)
 	private int carenciaEmMeses;
 	
-	@NotBlank
+	@NotNull
 	@DecimalMin("0.01")
 	@Column (name="valor_premio", columnDefinition="DECIMAL(14,2)", nullable=false)
 	private BigDecimal valorPremio;
 	
-	@NotBlank
+	@NotNull
 	@Column (name="dia_pagamento", nullable=false)
 	private int diaPagamento;
 	

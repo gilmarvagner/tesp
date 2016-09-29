@@ -16,6 +16,9 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Funcionario extends Pessoa {
 	
 	
+	public Funcionario(){
+		
+	}
 	public Funcionario(Long id, String nome, String sexo, String cpf, String telefoneComercial,
 			String telefoneResidencial, String telefoneCelular, String email, Date dataNascimento, Date dataCadastro) {
 		super(id, nome, sexo, cpf, telefoneComercial, telefoneResidencial, telefoneCelular, email, dataNascimento,
@@ -23,6 +26,21 @@ public class Funcionario extends Pessoa {
 		// TODO Auto-generated constructor stub
 	}
 	
+	
+	
+	public Funcionario(Long id, String nome, String sexo, String cpf, String telefoneComercial,
+			String telefoneResidencial, String telefoneCelular, String email, java.util.Date dataNascimento,
+			java.util.Date dataCadastro, Long version, Setor setor, String perfil, String login, String senha) {
+		super(id, nome, sexo, cpf, telefoneComercial, telefoneResidencial, telefoneCelular, email, dataNascimento,
+				dataCadastro, version);
+		this.setor = setor;
+		this.perfil = perfil;
+		this.login = login;
+		this.senha = senha;
+	}
+
+
+
 	@ManyToOne
 	private Setor setor;
 	

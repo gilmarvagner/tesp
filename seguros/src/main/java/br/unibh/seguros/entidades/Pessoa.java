@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -69,13 +70,13 @@ public abstract class Pessoa {
 	@Column (length=100)
 	private String email;
 	
-	@NotBlank
+	@NotNull
 	@Past
 	@Column (name="data_nascimento", nullable=false)
 	@Temporal (TemporalType.DATE)
 	private Date dataNascimento;
 	
-	@NotBlank
+	@NotNull
 	@Past
 	@Column (name="data_cadastro", nullable=false)
 	@Temporal (TemporalType.TIMESTAMP)
@@ -165,6 +166,9 @@ public abstract class Pessoa {
 		} else if (!version.equals(other.version))
 			return false;
 		return true;
+	}
+	public Pessoa(){
+		
 	}
 	public Pessoa(Long id, String nome, String sexo, String cpf, String telefoneComercial, String telefoneResidencial,
 			String telefoneCelular, String email, Date dataNascimento, Date dataCadastro, Long version) {

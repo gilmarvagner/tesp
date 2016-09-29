@@ -9,6 +9,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -35,12 +36,12 @@ public class Veiculo {
 	@Column (length = 150, nullable=false)
 	private String descricao;
 	
-	@NotBlank
+	@NotNull
 	@Min(value=1950, message ="Só é permitido acima de 1950")
 	@Column (name="ano_fabricacao", nullable=false )
 	private int anoFabricacao;
 	
-	@NotBlank
+	@NotNull
 	@Min(value=1950, message ="Só é permitido acima de 1950")
 	@Column (name="ano_modelo", nullable=false)
 	private int anoModelo;
@@ -56,15 +57,15 @@ public class Veiculo {
 	@Column (length = 50, nullable=false)
 	private String chassi;
 	
-	@NotBlank
+	@NotNull
 	@Column (name="tipo_combustivel", nullable=false)
 	private TipoCombustivel tipoCombustivel;
 	
-	@NotBlank
+	@NotNull
 	@Column (name="zero_km", nullable=false)
 	private Boolean zeoKm;
 	
-	@NotBlank
+	@NotNull
 	@Column (name="veiculo_alienado", nullable=false)
 	private Boolean veiculoAlienado;
 	

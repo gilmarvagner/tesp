@@ -9,102 +9,130 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
-@Entity
-@Table(name="tb_segurado")
 
-public class Segurado extends Pessoa{
-	
+@Entity
+@Table(name = "tb_segurado")
+
+public class Segurado extends Pessoa {
+
+	public Segurado() {
+
+	}
+
+	public Segurado(Long id, String nome, String sexo, String cpf, String telefoneComercial, String telefoneResidencial,
+			String telefoneCelular, String email, Date dataNascimento, Date dataCadastro, Long version, String classe,
+			String numeroRG, String orgaoExpedidorRG, String numeroHabilitacao, String tipoHabilitacao,
+			Date dataValidadeHabilitacao, Date dataPrimeiraHabilitacao, String logradouro, String numero,
+			String complemento, String cep, String bairro, String cidade, String estado, Set<Proposta> proposta) {
+		super(id, nome, sexo, cpf, telefoneComercial, telefoneResidencial, telefoneCelular, email, dataNascimento,
+				dataCadastro, version);
+		this.classe = classe;
+		this.numeroRG = numeroRG;
+		this.orgaoExpedidorRG = orgaoExpedidorRG;
+		this.numeroHabilitacao = numeroHabilitacao;
+		this.tipoHabilitacao = tipoHabilitacao;
+		this.dataValidadeHabilitacao = dataValidadeHabilitacao;
+		this.dataPrimeiraHabilitacao = dataPrimeiraHabilitacao;
+		this.logradouro = logradouro;
+		this.numero = numero;
+		this.complemento = complemento;
+		this.cep = cep;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.proposta = proposta;
+	}
+
 	public Segurado(Long id, String nome, String sexo, String cpf, String telefoneComercial, String telefoneResidencial,
 			String telefoneCelular, String email, java.sql.Date dataNascimento, java.sql.Date dataCadastro) {
 		super(id, nome, sexo, cpf, telefoneComercial, telefoneResidencial, telefoneCelular, email, dataNascimento,
 				dataCadastro, null);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@NotBlank
-	@Pattern(regexp="[A-Z]*",message="Não deve ter caracteres especiais, espaços e letras Minusculas")
-	@Column (columnDefinition="CHAR(1)", nullable=false)
+	@Pattern(regexp = "[A-Z]{1}", message = "Não deve ter caracteres especiais, espaços e letras Minusculas")
+	@Column(columnDefinition = "CHAR(1)", nullable = false)
 	private String classe;
-	
-	@NotBlank
-	@Pattern(regexp="[0-9]*", message = "Somente Numeros")
-	@Size(max=10) 
-	@Column (name="numero_rg", length = 10, nullable=false) 
+
+	@NotNull
+	@Pattern(regexp = "[0-9]*", message = "Somente Numeros RG")
+	@Size(max = 10)
+	@Column(name = "numero_rg", length = 10, nullable = false)
 	private String numeroRG;
-	
-	
+
 	@NotBlank
-	@Pattern(regexp="[A-Z/-]*",message="Apenas Letras Maiusculas")
-	@Size(max=30)
-	@Column (name="orgao_expedidor_rg", length = 50, nullable=false)
+	@Pattern(regexp = "[A-Z/-]*", message = "Apenas Letras Maiusculas")
+	@Size(max = 30)
+	@Column(name = "orgao_expedidor_rg", length = 50, nullable = false)
 	private String orgaoExpedidorRG;
-	
+
 	@NotBlank
-	@Pattern(regexp="[0-9]*", message = "Somente Numeros")
-	@Size(max=30)
-	@Column (name="numero_habilitacao", length = 20, nullable=false)
+	@Pattern(regexp = "[0-9]*", message = "Somente Numeros AB")
+	@Size(max = 30)
+	@Column(name = "numero_habilitacao", length = 20, nullable = false)
 	private String numeroHabilitacao;
-	
+
 	@NotBlank
-	@Pattern(regexp="[ABCDE]*",message="Apenas A, B, C, D e E")
-	@Column (name="tipo_habilitacao", columnDefinition="CHAR(1)", nullable=false)
+	@Pattern(regexp = "[ABCDE]*", message = "Apenas A, B, C, D e E")
+	@Column(name = "tipo_habilitacao", columnDefinition = "CHAR(1)", nullable = false)
 	private String tipoHabilitacao;
-	
-	@NotBlank
-	@Column (name="data_validade_habilitacao", nullable=false )
-	@Temporal (TemporalType.DATE)
+
+	@NotNull
+	@Column(name = "data_validade_habilitacao", nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date dataValidadeHabilitacao;
-	
-	@NotBlank
+
+	@NotNull
 	@Past
-	@Column (name="data_primeira_abilitacao", nullable=false)
-	@Temporal (TemporalType.DATE)
+	@Column(name = "data_primeira_abilitacao", nullable = false)
+	@Temporal(TemporalType.DATE)
 	private Date dataPrimeiraHabilitacao;
-	
+
 	@NotBlank
-	@Pattern(regexp="[A-zÀ-ú ]*",message="Deverá ter apenas Letras e Espaço")
-	@Size(max=150)
-	@Column (length = 150, nullable=false)
+	@Pattern(regexp = "[A-zÀ-ú ]*", message = "L Deverá ter apenas Letras e Espaço")
+	@Size(max = 150)
+	@Column(length = 150, nullable = false)
 	private String logradouro;
-	
-	@NotBlank
-	@Pattern(regexp="[A-zÀ-ú ]*",message="Deverá ter apenas Letras e Espaço")
-	@Size (max=30)
-	@Column (length = 30, nullable=false)
+
+	@NotNull
+	@Pattern(regexp = "[0-9]*", message = "N Deverá ter apenas Letras e Espaço")
+	@Size(max = 30)
+	@Column(length = 30, nullable = false)
 	private String numero;
-	
-	@Pattern(regexp="[A-zÀ-ú ]*",message="Deverá ter apenas Letras e Espaço")
-	@Size (max=100)
-	@Column (length = 100)
+
+	@Pattern(regexp = "[A-zÀ-ú ]*", message = "C Deverá ter apenas Letras e Espaço")
+	@Size(max = 100)
+	@Column(length = 100)
 	private String complemento;
-	
-	@Pattern(regexp="[\\d{5}[-]\\d{2}]")
-	@Column (columnDefinition="CHAR(10)", nullable=false)
+
+	@Pattern(regexp = "\\d{5}-\\d{2}")
+	@Column(columnDefinition = "CHAR(10)", nullable = false)
 	private String cep;
-	
-	@Pattern(regexp="[A-zÀ-ú ]*",message="Deverá ter apenas Letras e Espaço")
-	@Size(max=50)
-	@Column (length = 50, nullable=false)
+
+	@Pattern(regexp = "[A-zÀ-ú ]*", message = "Deverá ter apenas Letras e Espaço")
+	@Size(max = 50)
+	@Column(length = 50, nullable = false)
 	private String bairro;
-	
-	@Pattern(regexp="[A-zÀ-ú ]*",message="Deverá ter apenas Letras e Espaço")
-	@Size(max=100)
-	@Column (length = 100, nullable=false)
+
+	@Pattern(regexp = "[A-zÀ-ú ]*", message = "Deverá ter apenas Letras e Espaço")
+	@Size(max = 100)
+	@Column(length = 100, nullable = false)
 	private String cidade;
-	
-	@Pattern(regexp="[A-Z ]")
-	@Size(max=2,min=2)
-	@Column (columnDefinition="CHAR(2)", nullable=false)
+
+	@Pattern(regexp = "[A-Z]{2}")
+	@Size(max = 2, min = 2)
+	@Column(columnDefinition = "CHAR(2)", nullable = false)
 	private String estado;
-	
-	@OneToMany(mappedBy="segurado")
+
+	@OneToMany(mappedBy = "segurado")
 	private Set<Proposta> proposta;
-	
 
 	@Override
 	public int hashCode() {
@@ -126,6 +154,7 @@ public class Segurado extends Pessoa{
 		result = prime * result + ((tipoHabilitacao == null) ? 0 : tipoHabilitacao.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -207,6 +236,7 @@ public class Segurado extends Pessoa{
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Segurado [classe=" + classe + ", numeroRG=" + numeroRG + ", orgaoExpedidorRG=" + orgaoExpedidorRG
@@ -220,93 +250,121 @@ public class Segurado extends Pessoa{
 	public String getClasse() {
 		return classe;
 	}
+
 	public void setClasse(String classe) {
 		this.classe = classe;
 	}
+
 	public String getNumeroRG() {
 		return numeroRG;
 	}
+
 	public void setNumeroRG(String numeroRG) {
 		this.numeroRG = numeroRG;
 	}
+
 	public String getOrgaoExpedidorRG() {
 		return orgaoExpedidorRG;
 	}
+
 	public void setOrgaoExpedidorRG(String orgaoExpedidorRG) {
 		this.orgaoExpedidorRG = orgaoExpedidorRG;
 	}
+
 	public String getNumeroHabilitacao() {
 		return numeroHabilitacao;
 	}
+
 	public void setNumeroHabilitacao(String numeroHabilitacao) {
 		this.numeroHabilitacao = numeroHabilitacao;
 	}
+
 	public String getTipoHabilitacao() {
 		return tipoHabilitacao;
 	}
+
 	public void setTipoHabilitacao(String tipoHabilitacao) {
 		this.tipoHabilitacao = tipoHabilitacao;
 	}
+
 	public Date getDataValidadeHabilitacao() {
 		return dataValidadeHabilitacao;
 	}
+
 	public void setDataValidadeHabilitacao(Date dataValidadeHabilitacao) {
 		this.dataValidadeHabilitacao = dataValidadeHabilitacao;
 	}
+
 	public Date getDataPrimeiraHabilitacao() {
 		return dataPrimeiraHabilitacao;
 	}
+
 	public void setDataPrimeiraHabilitacao(Date dataPrimeiraHabilitacao) {
 		this.dataPrimeiraHabilitacao = dataPrimeiraHabilitacao;
 	}
+
 	public String getLogradouro() {
 		return logradouro;
 	}
+
 	public void setLogradouro(String logradouro) {
 		this.logradouro = logradouro;
 	}
+
 	public String getNumero() {
 		return numero;
 	}
+
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
+
 	public String getComplemento() {
 		return complemento;
 	}
+
 	public void setComplemento(String complemento) {
 		this.complemento = complemento;
 	}
+
 	public String getCep() {
 		return cep;
 	}
+
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
+
 	public String getBairro() {
 		return bairro;
 	}
+
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
+
 	public String getCidade() {
 		return cidade;
 	}
+
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
 	}
+
 	public String getEstado() {
 		return estado;
 	}
+
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
 	public Set<Proposta> getPropostaa() {
 		return proposta;
 	}
+
 	public void setPropostas(Set<Proposta> propostaa) {
 		this.proposta = propostaa;
 	}
-
 
 }
