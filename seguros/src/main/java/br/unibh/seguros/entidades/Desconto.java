@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -23,7 +25,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name="tb_desconto")
-
+@NamedQueries({
+@NamedQuery(name="Desconto.findByName", query = "select o from Desconto o where o.classe like :classe")})
 public class Desconto {
 	
 	
@@ -94,6 +97,9 @@ public class Desconto {
 	public String toString() {
 		return "Desconto [id=" + id + ", classe=" + classe + ", dataInicio=" + dataInicio + ", dataFim=" + dataFim
 				+ ", percentualDesconto=" + percentualDesconto + "]";
+	}
+	public Desconto(){
+		
 	}
 	public Desconto(Long id, String classe, Date dataInicio, Date dataFim, BigDecimal percentualDesconto) {
 		super();

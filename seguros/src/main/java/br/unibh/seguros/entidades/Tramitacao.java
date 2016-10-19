@@ -132,6 +132,10 @@ public class Tramitacao {
 	}
 	
 	
+	public Tramitacao(){
+		
+	}
+	
 	
 	
 	}

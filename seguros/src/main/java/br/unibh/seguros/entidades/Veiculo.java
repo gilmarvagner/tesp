@@ -159,5 +159,9 @@ public class Veiculo {
 		this.veiculoAlienado = veiculoAlienado;
 		this.version = version;
 	}
+	
+	public Veiculo(){
+		
+	}
 
 }

@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -18,8 +20,11 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 @Entity
-
 @Table(name="tb_setor")
+@NamedQueries({
+@NamedQuery(name="Setor.findByName", query = "select o from Setor o where o.nome like :nome")
+})
+
 public class Setor {
 	
 	public Setor(Long id, String nome, String sigla, Setor setorSuperior, Set<Funcionario> funcionarios) {
@@ -30,6 +35,12 @@ public class Setor {
 		this.setorSuperior = setorSuperior;
 		this.funcionarios = funcionarios;
 	}
+	
+	public Setor(){
+		
+		
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@PrimaryKeyJoinColumn

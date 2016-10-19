@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -18,7 +20,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name = "tb_segurado")
-
+@NamedQueries({
+@NamedQuery(name="Segurado.findByName", query = "select o from Segurado o where o.nome like :nome")})
 public class Segurado extends Pessoa {
 
 	public Segurado() {

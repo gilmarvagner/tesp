@@ -178,5 +178,12 @@ public class Questionario {
 		this.possuiDispositivoAntiFurto = possuiDispositivoAntiFurto;
 		this.version = version;
 	}
+	
+	public Questionario(){
+		
+		
+	}
+	
+	
+	}
 
-}

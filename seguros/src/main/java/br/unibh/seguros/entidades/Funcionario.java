@@ -5,6 +5,8 @@ import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -12,6 +14,8 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name="tb_funcionario")
+@NamedQueries({
+@NamedQuery(name="Funcionario.findByName", query = "select o from Funcionario o where o.nome like :nome")})
 
 public class Funcionario extends Pessoa {
 	
