@@ -1,6 +1,7 @@
 package br.unibh.seguros.negocio;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.Logger;
@@ -9,7 +10,10 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+
+import br.unibh.seguros.entidades.Desconto;
 import br.unibh.seguros.entidades.Proposta;
+import br.unibh.seguros.entidades.Segurado;
 import br.unibh.seguros.entidades.TipoCombustivel;
 
 
@@ -22,7 +26,8 @@ public class ServicoProposta implements DAO<Proposta, Long> {
 	EntityManager em;
 	@Inject
 	private Logger log;
-	
+	@Inject
+	private ServicoDesconto sd;
 
 	@Override
 	public Proposta insert(Proposta t) throws Exception {
@@ -60,6 +65,12 @@ public class ServicoProposta implements DAO<Proposta, Long> {
 	@Override
 	public List<Proposta> findByName(String name) throws Exception {
 		return null;
+	}
+	@SuppressWarnings("unchecked")
+	public List<Proposta> findBySegurado(Segurado s) throws Exception {
+		
+		log.info("Encontrando propostas do segurado "+s.getNome());
+		return em.createNamedQuery("Proposta.findBySeguradoID").setParameter("id", s.getId()).getResultList();		
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -158,29 +169,96 @@ public class ServicoProposta implements DAO<Proposta, Long> {
 			proposta.getValorPremio().add(new BigDecimal(5*multiplicador));
 			
 
-		if (proposta.getClass().equals("E")){
+		if (proposta.getClasse().equals("E")){
 			
 		proposta.getValorPremio().subtract(new BigDecimal(400F));
 					
-		}else if (proposta.getClass().equals("D")){
-			
-			proposta.getValorPremio().subtract(new BigDecimal(300F));
 		}else if (proposta.getClass().equals("C")){
 			
+			proposta.getValorPremio().subtract(new BigDecimal(300F));
+		}else if (proposta.getClass().equals("D")){
+			
 			proposta.getValorPremio().subtract(new BigDecimal(200F));
-		}else if (proposta.getClass().equals("F")){
+		}else if (proposta.getClass().equals("E")){
 			
 			proposta.getValorPremio().subtract(new BigDecimal(100F));
+		}
+		Desconto d = sd.findByClasse(proposta.getClasse());
+		
+		if(d != null){
+			
+			proposta.getValorPremio().subtract(proposta.getValorPremio().multiply(d.getPercentualDesconto().divide(new BigDecimal(100))));
+			
 		}
 		
 		return proposta.getValorPremio();
 
 		
+		}	
+		
+		//BigDecimal franquia = Proposta.getValorSegurado().multiply(new BigDecimal(0.02F));
+		
+		//franquia.add(proposta.getValrPremio().multply(new BigDecimal (1F/3F)));
+				
+				
+				
+				
+	
+		public String calculaValorClasse(Proposta proposta) throws Exception{
+			
+			if (proposta == null || proposta.getSegurado() == null){
+				
+				return null;				
+			}
+			
+			List<Proposta> lista = findBySegurado(proposta.getSegurado());
+			
+				if (lista.isEmpty()){
+					
+					return "A";
+				}
+				int maiorClasse = 1;
+				int classe = 0;
+				for (Proposta p: lista){
+					
+					if (p.getClasse().equals("E")) classe = 5;
+					else if (p.getClasse().equals("D")) classe = 4;
+					else if (p.getClasse().equals("C")) classe = 3;
+					else if (p.getClasse().equals("B")) classe =2;
+					else if (p.getClasse().equals("A")) classe =1;
+					
+					if (maiorClasse < classe) maiorClasse = classe;
+					
+					
+				}
+			if (maiorClasse >= 4 ) return "E";
+			else if (maiorClasse == 3) return "D";
+			else if (maiorClasse == 2) return "C";
+			else if(maiorClasse == 1)  return "B";
+			
+			return null;
+		}
+		
+		
+		public String criarCodigoSUSEP(Proposta proposta)throws Exception {
+			
+			if (proposta ==null || proposta.getSegurado() == null){
+			
+				return null;
+				
+			}
+			
+			SimpleDateFormat df = new SimpleDateFormat ("YYMMDD");
+			String codigo = df.format(proposta.getData());
+			codigo += proposta.getSegurado().getEstado();
+			String[] nomes = proposta.getSegurado().getNome().split(" ");
+			codigo += nomes[0].charAt(0);
+			codigo += nomes[0].charAt(1);
+			codigo += Math.random()*1000;
+			codigo += proposta.getClasse();
+			return codigo;
+			
+		}
 		
 	}
 	
-	
-		
-	}
-	
-

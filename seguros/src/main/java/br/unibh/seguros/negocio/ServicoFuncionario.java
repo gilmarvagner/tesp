@@ -10,11 +10,10 @@ import javax.persistence.EntityManager;
 
 import br.unibh.seguros.entidades.Funcionario;
 
-
 @LocalBean
 @Stateless
 
-public class ServicoFuncionario implements DAO<Funcionario, Long>{
+public class ServicoFuncionario implements DAO<Funcionario, Long> {
 	@Inject
 	EntityManager em;
 	@Inject
@@ -59,5 +58,12 @@ public class ServicoFuncionario implements DAO<Funcionario, Long>{
 		log.info("Encontrando o " + name);
 		return em.createNamedQuery("Funcionario.findByName").setParameter("nome", name + "%").getResultList();
 	}
-}
 
+	@SuppressWarnings("unchecked")
+	public List<Funcionario> findByCpfComSetor(String name) throws Exception {
+		log.info("Encontrando o " + name);
+		return em.createNamedQuery("Funcionario.findByCpfComSetor").setParameter("cpf", name + "%").getResultList();
+	}
+	
+
+}

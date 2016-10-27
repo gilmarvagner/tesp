@@ -1,5 +1,6 @@
 package br.unibh.seguros.negocio;
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -8,7 +9,10 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
-
+import br.unibh.seguros.entidades.EtapaProcesso;
+import br.unibh.seguros.entidades.Funcionario;
+import br.unibh.seguros.entidades.Proposta;
+import br.unibh.seguros.entidades.TipoDecisao;
 import br.unibh.seguros.entidades.Tramitacao;
 
 @Stateless
@@ -57,4 +61,110 @@ public class ServicoTramitacao implements DAO<Tramitacao, Long> {
 	public List<Tramitacao> findByName(String name) throws Exception {
 		return null;
 	}
-}
+	
+	/*
+	public Tramitacao aprovar(Proposta proposta, Funcionario usuarioDecisao, String comentario) throws Exception{
+		if (proposta == null) throw new Exception("Proposta vazia");
+		Tramitacao ultimaTramitacao = ultimaTramitacao(proposta);
+		if (ultimaTramitacao == null){
+			if (usuarioDecisao.getPerfil().equals("Atendimento")){
+				Tramitacao t = new Tramitacao();
+				t.setProposta(proposta);
+				t.setDataHora(new Date());
+				t.setEtapaProcesso(EtapaProcesso.APROVADA);
+				t.setUsuarioDecisao(usuarioDecisao);
+				t.setTipoDecisao(TipoDecisao.MANUAL);
+				t.setComentario(comentario);
+				return insert(t);
+			}else {
+				throw new Exception ("Usuário não pode realizar a aprovação");
+			
+			}
+		}return null;
+	}
+
+	public Tramitacao Reprovar(Proposta proposta, Funcionario usuarioDecisao, String Comentario) throws Exception{
+		if (proposta == null) throw new Exception("Proposta vazia");
+		Tramitacao ultimaTramitacao = ultimaTramitacao(proposta);
+		if (ultimaTramitacao == null){
+			if (usuarioDecisao.getPerfil().equals("Atendimento") && equals("Jurídico") && equals("Concessão")){
+				Tramitacao t = new Tramitacao();
+				t.setProposta(proposta);
+				t.setDataHora(new Date());
+				t.setEtapaProcesso(EtapaProcesso.REPROVADA);
+				t.setUsuarioDecisao(usuarioDecisao);
+				t.setTipoDecisao(TipoDecisao.MANUAL);
+				t.setComentario(Comentario);
+				return insert(t);
+			}else {
+				throw new Exception ("Usuário não pode realizar a aprovação");
+			
+			}
+		}return null;
+	}
+			
+		public Tramitacao Cancelar(Proposta proposta, Funcionario usuarioDecisao, String Comentario) throws Exception{
+			if (proposta == null) throw new Exception("Proposta vazia");
+			Tramitacao ultimaTramitacao = ultimaTramitacao(proposta);
+			if (ultimaTramitacao == null){
+				if (usuarioDecisao.getPerfil().equals("Atendimento")){
+					Tramitacao t = new Tramitacao();
+					t.setProposta(proposta);
+					t.setDataHora(new Date());
+					t.setEtapaProcesso(EtapaProcesso.CANCELADA);
+					t.setUsuarioDecisao(usuarioDecisao);
+					t.setTipoDecisao(TipoDecisao.MANUAL);
+					t.setComentario(Comentario);
+					return insert(t);
+				}else {
+					throw new Exception ("Usuário não pode realizar a aprovação");
+				
+				}
+			}return null;
+			
+		}
+		
+		public Tramitacao Emitir(Proposta proposta, Funcionario usuarioDecisao, String Comentario) throws Exception{
+			if (proposta == null) throw new Exception("Proposta vazia");
+			Tramitacao ultimaTramitacao = ultimaTramitacao(proposta);
+			if (ultimaTramitacao == null){
+				if (usuarioDecisao.getPerfil().equals("Financeiro")){
+					Tramitacao t = new Tramitacao();
+					t.setProposta(proposta);
+					t.setDataHora(new Date());
+					t.setEtapaProcesso(EtapaProcesso.EMITIDA);
+					t.setUsuarioDecisao(usuarioDecisao);
+					t.setTipoDecisao(TipoDecisao.MANUAL);
+					t.setComentario(Comentario);
+					return insert(t);
+				}else {
+					throw new Exception ("Usuário não pode realizar a aprovação");
+				
+				}
+			}return null;
+			
+		}
+		
+		public Tramitacao Cancelar2(Proposta proposta, Funcionario usuarioDecisao, String Comentario) throws Exception{
+			if (proposta == null) throw new Exception("Proposta vazia");
+			Tramitacao ultimaTramitacao = ultimaTramitacao(proposta);
+			if (ultimaTramitacao == null){
+				if (usuarioDecisao.getPerfil().equals("Atendimento")){
+					Tramitacao t = new Tramitacao();
+					t.setProposta(proposta);
+					t.setDataHora(new Date());
+					t.setEtapaProcesso(EtapaProcesso.CANCELADA);
+					t.setUsuarioDecisao(usuarioDecisao);
+					t.setTipoDecisao(TipoDecisao.MANUAL);
+					t.setComentario(Comentario);
+					return update(t);
+				}else {
+					throw new Exception ("Usuário não pode realizar a aprovação");
+				
+				}
+			}return null;
+			*/
+		
+		
+	}
+	

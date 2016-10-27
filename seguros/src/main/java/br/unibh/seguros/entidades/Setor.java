@@ -22,7 +22,9 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name="tb_setor")
 @NamedQueries({
-@NamedQuery(name="Setor.findByName", query = "select o from Setor o where o.nome like :nome")
+@NamedQuery(name="Setor.findByName", query = "select o from Setor o where o.nome like :nome"),
+@NamedQuery(name="Setor.findByIdComSetorSuperior", query = "select o from Setor o left join fetch o.setorSuperior where o.id = :id"),
+@NamedQuery(name="Setor.finbByNameComFuncionarios", query = "select o from Setor o join fetch o.funcionarios where o.nome like :nome")
 })
 
 public class Setor {

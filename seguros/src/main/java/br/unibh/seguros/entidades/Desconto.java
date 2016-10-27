@@ -26,7 +26,10 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name="tb_desconto")
 @NamedQueries({
-@NamedQuery(name="Desconto.findByName", query = "select o from Desconto o where o.classe like :classe")})
+@NamedQuery(name="Desconto.findByName", query = "select o from Desconto o where o.classe like :classe"),
+@NamedQuery(name="Desconto.findByClasse", query = "select o from Desconto o where o.classe = :classe and o.dataFim is null"),
+@NamedQuery(name="Desconto.findAllByClasse", query = "select o from Desconto o where o.classe = :classe")
+})
 public class Desconto {
 	
 	

@@ -15,7 +15,12 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name="tb_funcionario")
 @NamedQueries({
-@NamedQuery(name="Funcionario.findByName", query = "select o from Funcionario o where o.nome like :nome")})
+@NamedQuery(name="Funcionario.findByName", query = "select o from Funcionario o where o.nome like :nome"),
+@NamedQuery(name="Funcionario.findByCpfComSetor", query = "select o from Funcionario o join fetch o.setor where o.cpf like :cpf")
+
+
+
+})
 
 public class Funcionario extends Pessoa {
 	
