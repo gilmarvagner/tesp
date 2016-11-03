@@ -1,10 +1,12 @@
 package seguros;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import br.unibh.seguros.entidades.Setor;
 
+@Ignore
 public class TesteSetor {
 	
 	@Test

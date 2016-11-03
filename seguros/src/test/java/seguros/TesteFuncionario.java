@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import br.unibh.seguros.entidades.Funcionario;
 
+
 public class TesteFuncionario {
 	
 	@Test

@@ -24,6 +24,7 @@ import br.unibh.seguros.entidades.TipoDecisao;
 import br.unibh.seguros.entidades.Tramitacao;
 import br.unibh.seguros.entidades.Veiculo;
 
+
 public class TesteValidador {
 
 	private static Validator validator;
@@ -61,7 +62,7 @@ public class TesteValidador {
 	public void testeValidacaoFuncionarioOK() {
 		
 		Date data = new Date();
-		Funcionario o = new Funcionario(1L, "Joao Silva", "M", "07719687604", "(31)3340-2900", "(31)3340-2900", "(31)3340-2900", "teste@tese.com.br", data, data, null, null, "gilmar", "gilmarvagner", "gilmar123");
+		Funcionario o = new Funcionario(1L, "Joao Silva", "M", "07719687604", "(31)3340-2900", "(31)3340-2900", "(31)3340-2900", "teste@teste.com.br", data, data, null, null, "Gerente", "gilmarvagner", "gilmar123");
 		System.out.println(o);
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(o);
 		for (ConstraintViolation<Funcionario> c : constraintViolations) {
@@ -73,7 +74,8 @@ public class TesteValidador {
 	@Test
 	public void testeValidacaoFuncionarioErro() {
 		Date data = new Date();
-		Funcionario o = new Funcionario(1L, "Joao Silva", "C", "07719687604", "(31)3340-2900", "(31)3340-2900", "(31)3340-2900", "teste@tese.com.br", data, data, null, null, "gilmar", "gilmarvagner", "gilmar123");
+		Setor s = new Setor();
+		Funcionario o = new Funcionario(1L, "Joao Silva", "C", "07719687604", "(31)3340-2900", "(31)3340-2900", "(31)3340-2900", "teste@teste.com.br", data, data, null, s, "Gerente", "gilmarvagners", "gilmar123");
 		System.out.println(o);
 		Set<ConstraintViolation<Funcionario>> constraintViolations = validator.validate(o);
 		for (ConstraintViolation<Funcionario> c : constraintViolations) {
@@ -129,7 +131,7 @@ public class TesteValidador {
 	public void testeValidacaoPropostaErro() {
 		
 		Date data = new Date();
-		Proposta o = new Proposta(1L, data, "9", "zzzzzzzzz", new BigDecimal("90.00"), new BigDecimal("80.00"), data, data, 3,new BigDecimal("50.00"), 10, "brasil", "conta", "saldo", null, null, null, null, null);
+		Proposta o = new Proposta(1L, data, null, "zzzzzzzzz", new BigDecimal("90.00"), new BigDecimal("0.01"), data, data, 3,new BigDecimal("0.01"), 10, "brasil", "conta", "saldo", null, null, null, null, null);
 		System.out.println(o);
 		Set<ConstraintViolation<Proposta>> constraintViolations = validator.validate(o);
 		for (ConstraintViolation<Proposta> c : constraintViolations) {
@@ -214,7 +216,7 @@ public class TesteValidador {
 	public void testeValidacaoVeiculoErro() {
 		
 		
-		Veiculo o = new Veiculo(1L, "VW", "gol", 2016, 2016, "put-3340", "abcdefghijklea", TipoCombustivel.GASOLINA, true, true, null);
+		Veiculo o = new Veiculo(1L, "VW", "gol", 2016, 2016, "PUT-3340", "abcdefghijklea", TipoCombustivel.GASOLINA, true, true, null);
 		System.out.println(o);
 		Set<ConstraintViolation<Veiculo>> constraintViolations = validator.validate(o);
 		for (ConstraintViolation<Veiculo> c : constraintViolations) {

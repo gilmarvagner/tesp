@@ -60,30 +60,30 @@ public class Segurado extends Pessoa {
 	}
 
 	@NotBlank
-	@Pattern(regexp = "[A-Z]{1}", message = "Não deve ter caracteres especiais, espaços e letras Minusculas")
+	@Pattern(regexp = "[A-Z]{1}", message = "Somente permitido uma letra de A a Z. COD-10PS")
 	@Column(columnDefinition = "CHAR(1)", nullable = false)
 	private String classe;
 
-	@NotNull
-	@Pattern(regexp = "[0-9]*", message = "Somente Numeros RG")
+	@NotBlank
+	@Pattern(regexp = "[0-9]*", message = "Somente Numeros RG. COD-11PS")
 	@Size(max = 10)
 	@Column(name = "numero_rg", length = 10, nullable = false)
 	private String numeroRG;
 
 	@NotBlank
-	@Pattern(regexp = "[A-Z/-]*", message = "Apenas Letras Maiusculas")
+	@Pattern(regexp = "[A-Z/-]*", message = "Apenas Letras Maiusculas. COD-12PS")
 	@Size(max = 30)
 	@Column(name = "orgao_expedidor_rg", length = 50, nullable = false)
 	private String orgaoExpedidorRG;
 
 	@NotBlank
-	@Pattern(regexp = "[0-9]*", message = "Somente Numeros AB")
+	@Pattern(regexp = "[0-9]*", message = "Somente Numeros AB. COD-13PS")
 	@Size(max = 30)
 	@Column(name = "numero_habilitacao", length = 20, nullable = false)
 	private String numeroHabilitacao;
 
 	@NotBlank
-	@Pattern(regexp = "[ABCDE]*", message = "Apenas A, B, C, D e E")
+	@Pattern(regexp = "[ABCDE]*", message = "Apenas A, B, C, D e E. COD-14PS")
 	@Column(name = "tipo_habilitacao", columnDefinition = "CHAR(1)", nullable = false)
 	private String tipoHabilitacao;
 
@@ -99,37 +99,38 @@ public class Segurado extends Pessoa {
 	private Date dataPrimeiraHabilitacao;
 
 	@NotBlank
-	@Pattern(regexp = "[A-zÀ-ú ]*", message = "L Deverá ter apenas Letras e Espaço")
+	@Pattern(regexp = "[A-zÀ-ú /.']*", message = "Não pode ser nulo, vazio ou apenas espaços. COD-15PS")
 	@Size(max = 150)
 	@Column(length = 150, nullable = false)
 	private String logradouro;
 
 	@NotNull
-	@Pattern(regexp = "[0-9]*", message = "N Deverá ter apenas Letras e Espaço")
+	@Pattern(regexp = "[0-9]*", message = "Permitido somente Numeros. COD-16PS")
 	@Size(max = 30)
 	@Column(length = 30, nullable = false)
 	private String numero;
 
-	@Pattern(regexp = "[A-zÀ-ú ]*", message = "C Deverá ter apenas Letras e Espaço")
+	@Pattern(regexp = "[A-zÀ-ú /.']*", message = "Não Permitido COD-17PS")
 	@Size(max = 100)
 	@Column(length = 100)
 	private String complemento;
 
-	@Pattern(regexp = "\\d{5}-\\d{2}")
+	@Pattern(regexp = "\\d{5}-\\d{2}", message = "CEP Exemplo 99.999-999. COD-18PS")
 	@Column(columnDefinition = "CHAR(10)", nullable = false)
 	private String cep;
-
-	@Pattern(regexp = "[A-zÀ-ú ]*", message = "Deverá ter apenas Letras e Espaço")
+	
+	@NotBlank
+	@Pattern(regexp = "[A-zÀ-ú .']*", message = "Não Permitido. COD-19PS")
 	@Size(max = 50)
 	@Column(length = 50, nullable = false)
 	private String bairro;
 
-	@Pattern(regexp = "[A-zÀ-ú ]*", message = "Deverá ter apenas Letras e Espaço")
+	@Pattern(regexp = "[A-zÀ-ú ]*", message = "Não Permitido. COD-20PS")
 	@Size(max = 100)
 	@Column(length = 100, nullable = false)
 	private String cidade;
 
-	@Pattern(regexp = "[A-Z]{2}")
+	@Pattern(regexp = "[A-Z]{2}", message = "Somente sigla. COD-21PS")
 	@Size(max = 2, min = 2)
 	@Column(columnDefinition = "CHAR(2)", nullable = false)
 	private String estado;

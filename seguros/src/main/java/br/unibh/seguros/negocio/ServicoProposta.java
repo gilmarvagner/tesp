@@ -195,12 +195,20 @@ public class ServicoProposta implements DAO<Proposta, Long> {
 
 		
 		}	
+	
+		public BigDecimal calculoValorFranquia(Proposta proposta) throws Exception{
 		
-		//BigDecimal franquia = Proposta.getValorSegurado().multiply(new BigDecimal(0.02F));
+			if (proposta == null || proposta.getValorSegurado() == null || proposta.getValorPremio() == null){
+				
+				return null;
+				
+			}
+		BigDecimal franquia = proposta.getValorSegurado().multiply(new BigDecimal(0.02F));
 		
-		//franquia.add(proposta.getValrPremio().multply(new BigDecimal (1F/3F)));
+		franquia.add(proposta.getValorPremio().multiply(new BigDecimal (1F/3F)));
 				
-				
+		return franquia;
+		}
 				
 				
 	

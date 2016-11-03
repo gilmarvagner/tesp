@@ -37,6 +37,7 @@ import br.unibh.seguros.negocio.ServicoFuncionario;
 import br.unibh.seguros.negocio.ServicoSetor;
 import br.unibh.seguros.util.Resources;
 
+
 @RunWith(Arquillian.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteNegocioSetor {
@@ -74,7 +75,7 @@ public class TesteNegocioSetor {
 	public void teste02_inserirComErro() throws Exception {
 		log.info("============> Iniciando o teste " + Thread.currentThread().getStackTrace()[1].getMethodName());
 		try {
-			Setor o = new Setor(null, "Tecnologia da Informação@", "TI", null, null);
+			Setor o = new Setor(null, "Tecnologia da Informação", "TI@@@@", null, null);
 			ss.insert(o);
 		} catch (Exception e) {
 			assertTrue(checkString(e, "Caracteres permitidos: letras, espaços, ponto e aspas simples"));
@@ -109,9 +110,9 @@ public class TesteNegocioSetor {
 		Setor s = new Setor(null, "Tecnologia da Informação", "TI", null, new HashSet<Funcionario>());
 		ss.insert(s);
 		// Persiste o funcionario com o setor
-		Funcionario f = new Funcionario(1L, "João da Silva", "M", "11111111111", "(31)2333-4444", "(31)3333-4444",
-				"(31)93333-4444", "joao@gmail.com", new Date(), new Date(), null, s, "Administrador", "joaosilva",
-				"12345678");
+		Date data = new Date();
+		Funcionario f = new Funcionario(1L, "Joao Silva", "M", "07719687604", "(31)3340-2900", "(31)3340-2900", "(31)3340-2900", "teste@teste.com.br", data, data, null, null, "Gerente", "gilmarvagner", "gilmar123");
+		
 		sf.insert(f);
 		// Vincula o funcionario ao setor
 		s.getFuncionarios().add(f);
@@ -121,7 +122,7 @@ public class TesteNegocioSetor {
 		Setor s2 = (Setor) ss.findByNameComFuncionarios("Tecnologia da Informação").get(0);
 		assertEquals(1, s2.getFuncionarios().size());
 		// Recupera o funcionario e verifica se possui o setor
-		Funcionario f2 = (Funcionario) sf.findByCpfComSetor("11111111111").get(0);
+		Funcionario f2 = (Funcionario) sf.findByCpfComSetor("07719687604").get(0);
 		assertEquals(f2.getSetor().getNome(), "Tecnologia da Informação");
 		log.info("============> Finalizando o teste " + Thread.currentThread().getStackTrace()[1].getMethodName());
 	}

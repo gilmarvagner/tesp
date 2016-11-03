@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -21,6 +23,11 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 @Entity
 @Table(name="tb_tramitacao")
+
+@NamedQueries({
+	@NamedQuery(name ="Tramitacao.ultimaTramitacao", query = "select o from Tramitacao o where o.proposta.id = :id order by o.dataHora desc")
+	
+})
 
 public class Tramitacao {
 	

@@ -18,6 +18,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -26,7 +27,7 @@ import br.unibh.seguros.entidades.Desconto;
 import br.unibh.seguros.negocio.DAO;
 import br.unibh.seguros.negocio.ServicoDesconto;
 import br.unibh.seguros.util.Resources;
-
+@Ignore
 @RunWith(Arquillian.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 

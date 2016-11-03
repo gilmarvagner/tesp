@@ -39,12 +39,12 @@ public abstract class Pessoa {
 	
 	@Column (length = 100, nullable=false)
 	@NotBlank
-	@Pattern(regexp="[A-zÀ-ú .']*",message="Deverá ter apenas Letras e Espaço")
+	@Pattern(regexp="[A-zÀ-ú .']*",message="Não pode ser nulo, vazio ou apenas caracteres de espaço. COD-01P")
 	@Size(min=3,max=100)
 	private String nome;
 	
 	@NotBlank
-	@Pattern(regexp="[MF]{1}")
+	@Pattern(regexp="[MF]{1}",message="Não pode ser nulo, vazio ou apenas caracteres de espaço, Permitido somente M: Masculino e F: Feminino. COD-02P")
 	@Column (columnDefinition="CHAR(1)", nullable=false)
 	private String sexo;
 	
@@ -53,15 +53,15 @@ public abstract class Pessoa {
 	@Column (columnDefinition="CHAR(11)", nullable=false, unique=true)
 	private String cpf;
 	
-	@Pattern(regexp="\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}")
+	@Pattern(regexp="\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}",message="Exemplo (XX)xxxx-xxxx. COD-04P")
 	@Column (name="telefone_comercial", columnDefinition="CHAR(14)",nullable=false )
 	private String telefoneComercial;
 	
-	@Pattern(regexp="\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}")
+	@Pattern(regexp="\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}",message="Exemplo (XX)xxxx-xxxx. COD-05P")
 	@Column (name="telefone_residencial", columnDefinition="CHAR(14)", nullable=false)
 	private String telefoneResidencial;
 	
-	@Pattern(regexp="\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}")
+	@Pattern(regexp="\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}",message="Exemplo (XX)xxxx-xxxx. COD-06P")
 	@Column (name="telefone_celular", columnDefinition="CHAR(14)", nullable=false)
 	private String telefoneCelular;
 	

@@ -42,15 +42,15 @@ public class Proposta {
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date data;
-
-	@Pattern(regexp = "[A-Z]{1}")
-	@Size(max = 1, min = 1)
+	
+	@NotBlank
+	@Pattern(regexp = "[A-Z]{1}",message="Apenas uma Letra. COD-22PP")
 	@Column(columnDefinition = "CHAR(1)", nullable = false)
 	private String classe;
 
 	@NotBlank
 	@Size(max = 15)
-	@Pattern(regexp = "[A-zÀ-ú ]*", message = "Deverá ter apenas Letras e Espaço")
+	@Pattern(regexp = "[A-Z0-9 /-.]", message = "Não Permitido. COD-23PP")
 	@Column(name = "codigo_susep", columnDefinition = "CHAR(15)", unique = true)
 	private String codigoSusep;
 
@@ -88,19 +88,19 @@ public class Proposta {
 	private int diaPagamento;
 
 	@NotBlank
-	@Pattern(regexp = "[A-zÀ-ú ]*", message = "Deverá ter apenas Letras e Espaço")
+	@Pattern(regexp = "[A-zÀ-ú .']", message = "Não permitido. COD-24PP")
 	@Size(max = 50)
 	@Column(name = "banco_pagamento", length = 50, nullable = false)
 	private String bancoPagamento;
 
 	@NotBlank
-	@Pattern(regexp = "[A-zÀ-ú ]*", message = "Deverá ter apenas Letras e Espaço")
+	@Pattern(regexp = "[A-zÀ-ú .']", message = "Não permitido. COD-25PP")
 	@Size(max = 15)
 	@Column(length = 15, nullable = false)
 	private String agencia;
 
 	@NotBlank
-	@Pattern(regexp = "[A-zÀ-ú ]*", message = "Deverá ter apenas Letras e Espaço")
+	@Pattern(regexp = "[A-zÀ-ú .']", message = "Não Permitido. COD-26PP")
 	@Size(max = 15)
 	@Column(length = 15, nullable = false)
 	private String conta;

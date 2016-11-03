@@ -67,7 +67,7 @@ public class ServicoSetor implements DAO<Setor, Long> {
 	@SuppressWarnings("unchecked")
 	public List<Setor> findByNameComFuncionarios(String nome) throws Exception {
 		log.info("Encontrando o " + nome);
-		return em.createNamedQuery("Setor.findByNameComFuncionarios").setParameter("nome", nome).getResultList();
+		return em.createNamedQuery("Setor.findByNameComFuncionarios").setParameter("nome", nome+ "%").getResultList();
 	}
 	
 

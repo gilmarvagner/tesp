@@ -25,7 +25,7 @@ public class Veiculo {
 	private Long id;
 	
 	@NotBlank
-	@Pattern(regexp="[A-zÀ-ú ]*",message="Deverá ter apenas Letras e Espaço")
+	@Pattern(regexp="[A-zÀ-ú .']*",message="Não Permitido. COD-27V")
 	@Size(max=50)
 	@Column (length = 50, nullable=false)
 	private String marca;

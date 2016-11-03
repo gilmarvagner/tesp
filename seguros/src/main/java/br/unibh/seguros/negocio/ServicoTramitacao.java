@@ -62,7 +62,14 @@ public class ServicoTramitacao implements DAO<Tramitacao, Long> {
 		return null;
 	}
 	
-	/*
+	public Tramitacao ultimaTramitacao(Proposta proposta) throws Exception {
+		log.info("Encontrando o " + proposta);
+		Object o = em.createNamedQuery("Tramitacao.ultimaTramitacao").setParameter("id",proposta ).getSingleResult();
+		if (o != null) return (Tramitacao) o;
+		return null;
+	}
+	
+	
 	public Tramitacao aprovar(Proposta proposta, Funcionario usuarioDecisao, String comentario) throws Exception{
 		if (proposta == null) throw new Exception("Proposta vazia");
 		Tramitacao ultimaTramitacao = ultimaTramitacao(proposta);
@@ -82,6 +89,9 @@ public class ServicoTramitacao implements DAO<Tramitacao, Long> {
 			}
 		}return null;
 	}
+
+	
+
 
 	public Tramitacao Reprovar(Proposta proposta, Funcionario usuarioDecisao, String Comentario) throws Exception{
 		if (proposta == null) throw new Exception("Proposta vazia");
@@ -163,8 +173,8 @@ public class ServicoTramitacao implements DAO<Tramitacao, Long> {
 				
 				}
 			}return null;
-			*/
-		
+			
+		}
 		
 	}
 	

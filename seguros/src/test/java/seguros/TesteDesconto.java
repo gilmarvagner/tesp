@@ -12,10 +12,12 @@ import javax.validation.ValidatorFactory;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import br.unibh.seguros.entidades.Desconto;
 
+@Ignore
 public class TesteDesconto {
 
 	private static Validator validator;

@@ -58,6 +58,8 @@ public class ServicoFuncionario implements DAO<Funcionario, Long> {
 		log.info("Encontrando o " + name);
 		return em.createNamedQuery("Funcionario.findByName").setParameter("nome", name + "%").getResultList();
 	}
+	
+	
 
 	@SuppressWarnings("unchecked")
 	public List<Funcionario> findByCpfComSetor(String name) throws Exception {

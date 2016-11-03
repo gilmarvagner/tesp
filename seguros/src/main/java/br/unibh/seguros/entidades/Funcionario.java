@@ -56,17 +56,17 @@ public class Funcionario extends Pessoa {
 	
 	@NotBlank
 	@Size (max=30)
-	@Pattern(regexp="[A-zÀ-ú ]*",message="Deverá ter apenas Letras e Espaço")
+	@Pattern(regexp="[A-zÀ-ú ]*",message="Não pode ser nulo, vazio ou apenas espaços. COD-08F")
 	@Column (length=30, nullable=false)
 	private String perfil;
 	
 	@NotBlank
-	@Pattern(regexp="[A-z0-9]*",message="Não deve ter caracteres especiais e espaços")
-	@Size(min=8,max=15)
+	@Pattern(regexp="[A-zÀ-ú ]*",message="Permitido somente Letras. COD-9F")
+	@Size(min=8)
 	@Column (length=15, nullable=false)
 	private String login;
 	
-	
+	@NotBlank
 	@Size(max=100)
 	@Column (length=100, nullable=false)
 	private String senha;
