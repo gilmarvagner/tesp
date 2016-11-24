@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file is not required if you don't need any extra configuration. -->
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+	<converter>
+		<converter-id>ConversorSetor</converter-id>
+		<converter-class>br.unibh.seguros.controle.ConversorSetor</converter-class>
+	</converter>
+
+
+	<converter>
+		<converter-id>ConversorFuncionario</converter-id>
+		<converter-class>br.unibh.seguros.controle.ConversorFuncionario</converter-class>
+	</converter>
+	
+	<converter>
+		<converter-id>ConversorProposta</converter-id>
+		<converter-class>br.unibh.seguros.controle.ConversorProposta</converter-class>
+	</converter>
+	
+	<converter>
+		<converter-id>ConversorSegurado</converter-id>
+		<converter-class>br.unibh.seguros.controle.ConversorSegurado</converter-class>
+	</converter>
+	
+	<converter>
+		<converter-id>ConversorTramitacao</converter-id>
+		<converter-class>br.unibh.seguros.controle.ConversorTramitacao</converter-class>
+	</converter>
+	
+</faces-config>

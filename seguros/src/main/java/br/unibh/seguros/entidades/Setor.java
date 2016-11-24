@@ -1,9 +1,11 @@
 package br.unibh.seguros.entidades;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,18 +26,19 @@ import org.hibernate.validator.constraints.NotBlank;
 @NamedQueries({
 @NamedQuery(name="Setor.findByName", query = "select o from Setor o where o.nome like :nome"),
 @NamedQuery(name="Setor.findByIdComSetorSuperior", query = "select o from Setor o left join fetch o.setorSuperior where o.id = :id"),
-@NamedQuery(name="Setor.findByNameComFuncionarios", query = "select o from Setor o join fetch o.funcionarios where o.nome like :nome")
+@NamedQuery(name="Setor.findByNameComFuncionarios", query = "select o from Setor o join fetch o.funcionario where o.nome like :nome")
 })
 
-public class Setor {
+public class Setor implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
-	public Setor(Long id, String nome, String sigla, Setor setorSuperior, Set<Funcionario> funcionarios) {
+	public Setor(Long id, String nome, String sigla, Setor setorSuperior, Set<Funcionario> funcionario) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.sigla = sigla;
 		this.setorSuperior = setorSuperior;
-		this.funcionarios = funcionarios;
+		this.funcionario = funcionario;
 	}
 	
 	public Setor(){
@@ -66,23 +69,25 @@ public class Setor {
 	@JoinColumn (name="setor_superior")
 	private Setor setorSuperior;
 	
-	@OneToMany(mappedBy="setor")
-	private Set<Funcionario> funcionarios;
+	@OneToMany(mappedBy="setor", fetch=FetchType.EAGER)
+	private Set<Funcionario> funcionario;
 	
 	@Version
 	private Long version;
 	
+	
+	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((funcionarios == null) ? 0 : funcionarios.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((setorSuperior == null) ? 0 : setorSuperior.hashCode());
 		result = prime * result + ((sigla == null) ? 0 : sigla.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -92,11 +97,6 @@ public class Setor {
 		if (getClass() != obj.getClass())
 			return false;
 		Setor other = (Setor) obj;
-		if (funcionarios == null) {
-			if (other.funcionarios != null)
-				return false;
-		} else if (!funcionarios.equals(other.funcionarios))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -107,11 +107,6 @@ public class Setor {
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
-		if (setorSuperior == null) {
-			if (other.setorSuperior != null)
-				return false;
-		} else if (!setorSuperior.equals(other.setorSuperior))
-			return false;
 		if (sigla == null) {
 			if (other.sigla != null)
 				return false;
@@ -119,10 +114,11 @@ public class Setor {
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "Setor [id=" + id + ", nome=" + nome + ", sigla=" + sigla + ", setorSuperior=" + setorSuperior
-				+ ", funcionarios=" + funcionarios + "]";
+				+ ", funcionarios=" + funcionario + "]";
 	}
 	public Long getId() {
 		return id;
@@ -148,11 +144,11 @@ public class Setor {
 	public void setSetorSuperior(Setor setorSuperior) {
 		this.setorSuperior = setorSuperior;
 	}
-	public Set<Funcionario> getFuncionarios() {
-		return funcionarios;
+	public Set<Funcionario> getFuncionario() {
+		return funcionario;
 	}
-	public void setFuncionarios(Set<Funcionario> funcionarios) {
-		this.funcionarios = funcionarios;
+	public void setFuncionario(Set<Funcionario> funcionario) {
+		this.funcionario = funcionario;
 	}
 	public Long getVersion() {
 		return version;

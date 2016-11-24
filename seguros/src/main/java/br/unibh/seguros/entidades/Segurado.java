@@ -1,5 +1,6 @@
 package br.unibh.seguros.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -22,7 +23,8 @@ import org.hibernate.validator.constraints.NotBlank;
 @Table(name = "tb_segurado")
 @NamedQueries({
 @NamedQuery(name="Segurado.findByName", query = "select o from Segurado o where o.nome like :nome")})
-public class Segurado extends Pessoa {
+public class Segurado extends Pessoa implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	public Segurado() {
 

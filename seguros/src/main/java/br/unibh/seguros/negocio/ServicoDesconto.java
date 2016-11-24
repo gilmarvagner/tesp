@@ -83,11 +83,13 @@ public class ServicoDesconto implements DAO<Desconto, Long> {
 	}
 
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Desconto> findByName(String classe) throws Exception {
-		
-		return null;
+		log.info("Encontrando o " + classe);
+		return em.createNamedQuery("Desconto.findByName").setParameter("classe", classe + "%").getResultList();
 	}
+	
 	
 
 	public Desconto findByClasse(String classe) throws Exception {

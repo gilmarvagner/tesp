@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+	<ui:define name="content">
+		<h:form id="cad" rendered="#{funcionariomb.funcionario != null}">
+			<h:panelGroup id="cadastro">
+				<p:panel>
+					<h:outputText value="Cadastro de Funcionarios"
+						style="font-size:18px;font-weight:bold" />
+					<p:messages autoUpdate="true" closable="true" />
+					<p:panelGrid columns="3" styleClass="ui-noborder">
+						<p:outputLabel value="Nome " />
+						<p:inputText id="nome" value="#{funcionariomb.funcionario.nome}"
+							size="50" />
+						<p:message for="nome" errorClass="invalid" />
+						<p:outputLabel value="Sexo " />
+						<p:inputText id="sexo" value="#{funcionariomb.funcionario.sexo}"
+							size="50" />
+						<p:message for="sexo" errorClass="invalid" />
+						<p:outputLabel value="CPF " />
+						<p:inputText id="cpf" value="#{funcionariomb.funcionario.cpf}"
+							size="50" />
+						<p:message for="cpf" errorClass="invalid" />
+						<p:outputLabel value="Telefone Comercial " />
+						<p:inputText id="telefonec"
+							value="#{funcionariomb.funcionario.telefoneComercial}" size="50" />
+						<p:message for="telefonec" errorClass="invalid" />
+						<p:outputLabel value="Telefone Residencial " />
+						<p:inputText id="telefoner"
+							value="#{funcionariomb.funcionario.telefoneResidencial}"
+							size="50" />
+						<p:message for="telefoner" errorClass="invalid" />
+						<p:outputLabel value="Telefone Celular " />
+						<p:inputText id="telefonecc"
+							value="#{funcionariomb.funcionario.telefoneCelular}" size="50" />
+						<p:message for="telefonecc" errorClass="invalid" />
+						<p:outputLabel value="Email " />
+						<p:inputText id="email" value="#{funcionariomb.funcionario.email}"
+							size="50" />
+						<p:message for="email" errorClass="invalid" />
+						<p:outputLabel value="Data Nascimento " />
+						<p:calendar id="datan"
+							value="#{funcionariomb.funcionario.dataNascimento}" />
+						<p:message for="datan" errorClass="invalid" />
+
+						<p:outputLabel value="Setor " />
+						<p:selectOneMenu id="setor" value="#{setormb.setor}"
+							enableManualInput="true" defaultLabel="digite para filtrar"
+							converter="ConversorSetor">
+							<f:selectItem itemValue="#{null}" itemLabel="" />
+							<f:selectItems value="#{setormb.lista}" var="setor"	itemValue="#{setor}" itemLabel="#{setor.nome}" />
+						</p:selectOneMenu>
+						<p:message for="setor" errorClass="invalid" />
+						<p:outputLabel value="Perfil " />
+						<p:selectOneMenu id="console" value="#{funcionariomb.funcionario.perfil}"	style="width:125px">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItem itemLabel="Atendimento" itemValue="Atendimento" />
+						</p:selectOneMenu>
+						<p:message for="console" errorClass="invalid" />						
+						<p:outputLabel value="Login " />
+						<p:inputText id="login" value="#{funcionariomb.funcionario.login}"	size="10" />
+						<p:message for="login" errorClass="invalid" />
+						<p:outputLabel value="Senha " />
+						<p:inputText id="senha" value="#{funcionariomb.funcionario.senha}"	size="10" />
+						<p:message for="senha" errorClass="invalid" />
+					</p:panelGrid>
+					<p:commandButton id="gravar" action="#{funcionariomb.gravar}"
+						value="gravar" update="cadastro" ajax="false" />
+					<p:commandButton id="cancelar" action="#{funcionariomb.cancelar}"
+						value="Voltar" immediate="true" update="cadastro,pesquisa"
+						ajax="false" />
+				</p:panel>
+			</h:panelGroup>
+		</h:form>
+		<p:panel id="pesquisa" rendered="#{funcionariomb.funcionario == null}">
+			<h:outputText value="Lista de Funcionarios"
+				style="font-size:18px;font-weight:bold" />
+			<h:form id="arg">
+				<p:panelGrid columns="4" styleClass="ui-noborder">
+					<p:outputLabel value="Nome:" />
+					<p:inputText id="nomeArg" value="#{funcionariomb.nomeArg}" />
+					<p:commandButton id="pesquisar" action="#{funcionariomb.pesquisar}"
+						value="Pesquisar" update="pesquisa" ajax="false" />
+					<p:commandButton id="novo" action="#{funcionariomb.novo}"
+						value="Novo" update="pesquisa,cadastro" ajax="false" />
+				</p:panelGrid>
+			</h:form>
+			<h:panelGroup rendered="#{empty funcionariomb.lista}">
+				<h:outputText value="Nenhum funcionario existe" />
+			</h:panelGroup>
+			<h:form id="edt">
+				<p:messages autoUpdate="true" closable="true" />
+				<p:dataTable id="tabela" var="funcionario"
+					value="#{funcionariomb.lista}"
+					rendered="#{not empty funcionariomb.lista}"
+					onrowclick="selectRow('#{funcionario.id}')" paginator="true"
+					rows="15">
+					<p:column headerText="Id" width="10%" sortBy="#{funcionario.id}">
+						<div align="center">
+							<h:outputText value="#{funcionario.id}" />
+						</div>
+					</p:column>
+					<p:column headerText="Nome" width="35%"
+						sortBy="#{funcionario.nome}">
+						<h:outputText value="#{funcionario.nome}" />
+					</p:column>
+					<p:column headerText="Sexo" width="15%"
+						sortBy="#{funcionario.sexo}">
+						<h:outputText value="#{funcionario.sexo}" />
+					</p:column>
+					<p:column headerText="Setor" width="35%"
+						sortBy="#{setormb.setor.nome}">
+						<h:outputText value="#{setormb.setor.nome}" />
+					</p:column>
+					<p:column headerText="Perfil" width="15%"
+						sortBy="#{funcionario.perfil}">
+						<h:outputText value="#{funcionario.perfil}" />
+					</p:column>
+					<p:column headerText="Comandos" width="20%">
+						<div align="center">
+							<p:commandLink id="editar"
+								action="#{funcionariomb.editar(funcionario.id)}" value="Editar"
+								update="pesquisa" ajax="false" />
+							<h:outputText value=" " />
+							<p:commandLink id="excluir"
+								action="#{funcionariomb.excluir(funcionario.id)}"
+								value="Excluir" update="pesquisa" ajax="false">
+								<p:confirm header="Confirmação"
+									message="Você confirma a exclusão do Funcionario #{funcionario.setor}?"
+									icon="ui-icon-alert" />
+							</p:commandLink>
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Excluir" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Cancelar" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</div>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>

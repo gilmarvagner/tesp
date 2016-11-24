@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+	<div class="ui-fluid">
+	<ui:define name="content">
+		<h:form id="cad" rendered="#{descontomb.desconto != null}">
+			<h:panelGroup id="cadastro">
+				<p:panel>
+					
+					<p:messages autoUpdate="true" closable="true" />
+					<p:fieldset legend="Cadastro Desconto" toggleable="true" toggleSpeed="500" style="font-size:18px font-weight:bold" >
+					<p:panelGrid columns="3" columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid" styleClass="ui-noborder">
+						
+						
+						<p:outputLabel value="Classe " />
+						<p:selectOneMenu id="console" value="#{descontomb.desconto.classe}" style="width:5px" size="5">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItem itemLabel="A" itemValue="A" />
+							<f:selectItem itemLabel="B" itemValue="B" />
+							<f:selectItem itemLabel="C" itemValue="C" />
+							<f:selectItem itemLabel="D" itemValue="D" />
+							<f:selectItem itemLabel="E" itemValue="E" />
+							
+						</p:selectOneMenu>
+						<p:message for="console" errorClass="invalid" />
+						
+						<p:outputLabel value="Data inicio" />
+						<p:calendar id="datamod"
+							value="#{descontomb.desconto.dataInicio}" />					
+						<p:message for="datamod" errorClass="invalid" />
+						
+						<p:outputLabel value="Data fim" />
+						<p:calendar id="datamod1"
+							value="#{descontomb.desconto.dataFim}" />					
+						<p:message for="datamod1" errorClass="invalid" />
+						
+						<p:outputLabel value="Percentual desconto " />
+			<p:inputNumber id="nome1" value="#{descontomb.desconto.percentualDesconto}" symbol="%"  symbolPosition="s"  />
+						<p:message for="nome1" errorClass="invalid" />
+					
+					</p:panelGrid>
+					</p:fieldset>
+					<p:commandButton id="gravar" action="#{descontomb.gravar}"
+						value="Gravar" update="cadastro" ajax="false" />
+					<p:commandButton id="cancelar" action="#{descontomb.cancelar}"
+						value="Voltar" immediate="true" update="cadastro,pesquisa"
+						ajax="false" />
+				</p:panel>
+			</h:panelGroup>
+		</h:form>
+		<p:panel id="pesquisa" rendered="#{descontomb.desconto == null}">
+			<h:outputText value="Lista Desconto"
+				style="font-size:18px;font-weight:bold" />
+			<h:form id="arg">
+				<p:panelGrid columns="4" styleClass="ui-noborder">
+					<p:outputLabel value="Selecione uma classe para filtrar:" />
+					
+					
+					<p:selectOneMenu  value="#{descontomb.nomeArg}" id="pesquisar" action="#{descontomb.pesquisar}"	 update="pesquisa" ajax="false" onchange="submit()" style="width:5px" size="5">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItem itemLabel="A" itemValue="A" />
+							<f:selectItem itemLabel="B" itemValue="B" />
+							<f:selectItem itemLabel="C" itemValue="C" />
+							<f:selectItem itemLabel="D" itemValue="D" />
+							<f:selectItem itemLabel="E" itemValue="E" />
+							
+						</p:selectOneMenu>
+					<p:commandButton id="pesquisar1" action="#{descontomb.pesquisar}"
+						value="Pesquisar" update="pesquisa" ajax="false" />
+					
+					<p:commandButton id="novo" action="#{descontomb.novo}" value="Novo"
+						update="pesquisa,cadastro" ajax="false" />
+				</p:panelGrid>
+			</h:form>
+			<h:panelGroup rendered="#{empty descontomb.lista}">
+				<h:outputText value="Nenhum desconto existe" />
+			</h:panelGroup>
+			<h:form id="edt">
+				<p:messages autoUpdate="true" closable="true" />
+				<p:dataTable id="tabela" var="desconto" value="#{descontomb.lista}"
+					rendered="#{not empty descontomb.lista}"
+					onrowclick="selectRow('#{desconto.classe}')" paginator="true" rows="15">
+					<p:column headerText="Id" width="10%" sortBy="#{desconto.id}">
+						<div align="center">
+							<h:outputText value="#{desconto.id}" />
+						</div>
+					</p:column>
+					<p:column headerText="Classe" width="35%" sortBy="#{desconto.classe}">
+						<h:outputText value="#{desconto.classe}" />
+					</p:column>
+					<p:column headerText="Data Inicio" width="15%" sortBy="#{desconto.dataInicio}">
+						<h:outputText	value="#{desconto.dataInicio}" >
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Data Fim" width="15%" sortBy="#{desconto.dataFim}">
+						<h:outputText value="#{desconto.dataFim}" >
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Percentual de Desconto" width="35%" sortBy="#{desconto.percentualDesconto}">
+						<h:outputText value="#{desconto.percentualDesconto}" />
+						
+					</p:column>
+					
+					<p:column headerText="Comandos" width="20%">
+						<div align="center">
+							<p:commandLink id="editar" action="#{descontomb.editar(desconto.id)}"
+								value="Editar" update="pesquisa" ajax="false" />
+							<h:outputText value=" " />
+							<p:commandLink id="excluir" action="#{descontomb.excluir(desconto.id)}"
+								value="Excluir" update="pesquisa" ajax="false">
+								<p:confirm header="Confirmação"
+									message="Você confirma a exclusão do desconto #{desconto.classe}?"
+									icon="ui-icon-alert" />
+							</p:commandLink>
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Excluir" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Cancelar" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</div>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+		
+	</ui:define>
+	</div>
+</ui:composition>

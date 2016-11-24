@@ -1,5 +1,6 @@
 package br.unibh.seguros.entidades;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -30,7 +31,8 @@ import org.hibernate.validator.constraints.NotBlank;
 @NamedQuery(name="Desconto.findByClasse", query = "select o from Desconto o where o.classe = :classe and o.dataFim is null"),
 @NamedQuery(name="Desconto.findAllByClasse", query = "select o from Desconto o where o.classe = :classe")
 })
-public class Desconto {
+public class Desconto implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	
 	@Id 

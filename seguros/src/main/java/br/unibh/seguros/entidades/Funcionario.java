@@ -1,5 +1,6 @@
 package br.unibh.seguros.entidades;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.persistence.Column;
@@ -22,7 +23,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 })
 
-public class Funcionario extends Pessoa {
+public class Funcionario extends Pessoa implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	
 	public Funcionario(){

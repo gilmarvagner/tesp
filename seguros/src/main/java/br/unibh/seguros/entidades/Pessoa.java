@@ -2,6 +2,7 @@ package br.unibh.seguros.entidades;
 
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -30,7 +31,8 @@ import org.hibernate.validator.constraints.br.CPF;
 
 
 
-public abstract class Pessoa {
+public abstract class Pessoa implements Serializable {
+	private static final long serialVersionUID = 1L;
 		
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -44,7 +46,7 @@ public abstract class Pessoa {
 	private String nome;
 	
 	@NotBlank
-	@Pattern(regexp="[MF]{1}",message="Não pode ser nulo, vazio ou apenas caracteres de espaço, Permitido somente M: Masculino e F: Feminino. COD-02P")
+	@Pattern(regexp="(M|F){1}",message="Não pode ser nulo, vazio ou apenas caracteres de espaço, Permitido somente M: Masculino e F: Feminino. COD-02P")
 	@Column (columnDefinition="CHAR(1)", nullable=false)
 	private String sexo;
 	

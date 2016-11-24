@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+	<ui:define name="content">
+		<h:form id="cad" rendered="#{seguradomb.segurado != null}">
+			<h:panelGroup id="cadastro">
+				<p:panel>
+					<h:outputText value="Cadastro de Segurado"
+						style="font-size:18px;font-weight:bold" />
+					<p:messages autoUpdate="true" closable="true" />
+					<p:panelGrid columns="3" styleClass="ui-noborder">
+
+
+
+						<p:outputLabel value="Nome " />
+						<p:inputText id="nome" value="#{seguradomb.segurado.nome}"
+							size="50" />
+						<p:message for="nome" errorClass="invalid" />
+
+
+						<p:outputLabel value="Sexo " />
+						<p:inputText id="sexo" value="#{seguradomb.segurado.sexo}"
+							size="50" />
+						<p:message for="sexo" errorClass="invalid" />
+
+
+						<p:outputLabel value="Cpf " />
+						<p:inputText id="cpf" value="#{seguradomb.segurado.cpf}" size="50" />
+						<p:message for="cpf" errorClass="invalid" />
+						<p:outputLabel value="Telefone Comercial " />
+						<p:inputText id="telefonec"
+							value="#{seguradomb.segurado.telefoneComercial}" size="50" />
+						<p:message for="telefonec" errorClass="invalid" />
+						<p:outputLabel value="Telefone Residencial " />
+						<p:inputText id="telefoner"
+							value="#{seguradomb.segurado.telefoneResidencial}" size="50" />
+						<p:message for="telefoner" errorClass="invalid" />
+						<p:outputLabel value="Telefone Celular " />
+						<p:inputText id="telefonecel"
+							value="#{seguradomb.segurado.telefoneCelular}" size="50" />
+						<p:message for="telefonecel" errorClass="invalid" />
+						<p:outputLabel value="Email " />
+						<p:inputText id="email" value="#{seguradomb.segurado.email}"
+							size="50" />
+						<p:message for="email" errorClass="invalid" />
+						<p:outputLabel value="Data Nascimento " />
+						<p:calendar id="datan" value="#{seguradomb.segurado.dataNascimento}" />
+						<p:message for="datan" errorClass="invalid" />
+						<p:outputLabel value="Data Cadastro " />
+						<p:calendar id="datac" value="#{seguradomb.segurado.dataCadastro}" />
+						<p:message for="datac" errorClass="invalid" />
+						<p:outputLabel value="Classe " />
+						<p:inputText id="classe" value="#{seguradomb.segurado.classe}"
+							size="50" />
+						<p:message for="classe" errorClass="invalid" />
+						<p:outputLabel value="RG" />
+						<p:inputText id="rg" value="#{seguradomb.segurado.numeroRG}"
+							size="50" />
+						<p:message for="rg" errorClass="invalid" />
+						<p:outputLabel value="Orgão Expedidor RG " />
+						<p:inputText id="orgaoExpedidorRG"
+							value="#{seguradomb.segurado.orgaoExpedidorRG}" size="50" />
+						<p:message for="orgaoExpedidorRG" errorClass="invalid" />
+						<p:outputLabel value="Numero Habilitacao " />
+						<p:inputText id="numeroHabilitacao"
+							value="#{seguradomb.segurado.numeroHabilitacao}" size="50" />
+						<p:message for="numeroHabilitacao" errorClass="invalid" />
+						<p:outputLabel value="Tipo Habilitacao " />
+						<p:inputText id="tipoHabilitacao"
+							value="#{seguradomb.segurado.tipoHabilitacao}" size="50" />
+						<p:message for="tipoHabilitacao" errorClass="invalid" />
+						<p:outputLabel value="Data Validade Habilitacao " />
+						<p:calendar id="dataValidadeHabilitacao"
+							value="#{seguradomb.segurado.dataValidadeHabilitacao}" />
+						<p:message for="dataValidadeHabilitacao" errorClass="invalid" />
+
+						<p:outputLabel value="Data Primeira Habilitacao " />
+						<p:calendar id="dataPrimeiraHabilitacao"
+							value="#{seguradomb.segurado.dataPrimeiraHabilitacao}" />
+						<p:message for="dataPrimeiraHabilitacao" errorClass="invalid" />
+						<p:outputLabel value="Logradouro " />						
+						<p:inputText id="logradouro" value="#{seguradomb.segurado.logradouro}" size="50" />
+						<p:message for="logradouro" errorClass="invalid" />
+						<p:outputLabel value="Numero " />
+						<p:inputText id="numero" value="#{seguradomb.segurado.numero}"
+							size="50" />
+						<p:message for="numero" errorClass="invalid" />
+
+
+						<p:outputLabel value="Complemento " />
+						<p:inputText id="complemento"
+							value="#{seguradomb.segurado.complemento}" size="10" />
+						<p:message for="complemento" errorClass="invalid" />
+						<p:outputLabel value="Cep " />
+						<p:inputText id="cep" value="#{seguradomb.segurado.cep}" size="10" />
+						<p:message for="cep" errorClass="invalid" />
+						<p:outputLabel value="Bairro " />
+						<p:inputText id="bairro" value="#{seguradomb.segurado.bairro}"
+							size="10" />
+						<p:message for="bairro" errorClass="invalid" />
+
+						<p:outputLabel value="Cidade " />
+						<p:inputText id="cidade" value="#{seguradomb.segurado.cidade}"
+							size="10" />
+						<p:message for="cidade" errorClass="invalid" />
+
+						<p:outputLabel value="Estado " />
+						<p:inputText id="estado" value="#{seguradomb.segurado.estado}"
+							size="10" />
+						<p:message for="estado" errorClass="invalid" />
+
+
+
+					</p:panelGrid>
+					<p:commandButton id="gravar" action="#{seguradomb.gravar}"
+						value="Gravar" update="cadastro" ajax="false" />
+					<p:commandButton id="cancelar" action="#{seguradomb.cancelar}"
+						value="Voltar" immediate="true" update="cadastro,pesquisa"
+						ajax="false" />
+				</p:panel>
+			</h:panelGroup>
+		</h:form>
+		<p:panel id="pesquisa" rendered="#{seguradomb.segurado == null}">
+			<h:outputText value="Lista de Segurado"
+				style="font-size:18px;font-weight:bold" />
+			<h:form id="arg">
+				<p:panelGrid columns="4" styleClass="ui-noborder">
+					<p:outputLabel value="Segurado:" />
+					<p:inputText id="nomeArg" value="#{seguradomb.nomeArg}" />
+					<p:commandButton id="pesquisar" action="#{seguradomb.pesquisar}"
+						value="Pesquisar" update="pesquisa" ajax="false" />
+					<p:commandButton id="novo" action="#{seguradomb.novo}" value="Novo"
+						update="pesquisa,cadastro" ajax="false" />
+				</p:panelGrid>
+			</h:form>
+			<h:panelGroup rendered="#{empty seguradomb.lista}">
+				<h:outputText value="Nenhum segurado existe" />
+			</h:panelGroup>
+			<h:form id="edt">
+				<p:messages autoUpdate="true" closable="true" />
+				<p:dataTable id="tabela" var="segurado" value="#{seguradomb.lista}"
+					rendered="#{not empty seguradomb.lista}"
+					onrowclick="selectRow('#{segurado.id}')" paginator="true" rows="15">
+					<p:column headerText="Id" width="10%" sortBy="#{segurado.id}">
+						<div align="center">
+							<h:outputText value="#{segurado.id}" />
+						</div>
+					</p:column>
+
+					<p:column headerText="Nome" width="35%" sortBy="#{segurado.nome}">
+						<h:outputText value="#{segurado.nome}" />
+					</p:column>
+					<!--  
+					<p:column headerText="Sexo" width="35%" sortBy="#{segurado.sexo}">
+						<h:outputText value="#{segurado.sexo}" />
+					</p:column>
+
+					<p:column headerText="Cpf" width="35%" sortBy="#{segurado.cpf}">
+						<h:outputText value="#{segurado.cpf}" />
+					</p:column>
+
+					<p:column headerText="Telefone Comercial" width="35%"
+						sortBy="#{segurado.telefoneComercial}">
+						<h:outputText value="#{segurado.telefoneComercial}" />
+					</p:column>
+
+					<p:column headerText="Telefone Residencial" width="35%"
+						sortBy="#{segurado.telefoneResidencial}">
+						<h:outputText value="#{segurado.telefoneResidencial}" />
+					</p:column>-->
+
+					<p:column headerText="Telefone Celular" width="35%"
+						sortBy="#{segurado.telefoneCelular}">
+						<h:outputText value="#{segurado.telefoneCelular}" />
+					</p:column>
+
+					<p:column headerText="Email" width="35%" sortBy="#{segurado.email}">
+						<h:outputText value="#{segurado.email}" />
+					</p:column>
+					<!--  
+					<p:column headerText="Data Nascimento" width="35%"
+						sortBy="#{segurado.dataNascimento}">
+						<h:outputText value="#{segurado.dataNascimento}" />
+					</p:column>
+
+					<p:column headerText="Data Cadastro" width="35%"
+						sortBy="#{segurado.dataCadastro}">
+						<h:outputText value="#{segurado.dataCadastro}" />
+					</p:column>
+
+					<p:column headerText="Classe" width="35%"
+						sortBy="#{segurado.classe}">
+						<h:outputText value="#{segurado.classe}" />
+					</p:column>
+					<p:column headerText="Numero RG" width="15%"
+						sortBy="#{segurado.numeroRG}">
+						<h:outputText value="#{segurado.numeroRG}" />
+					</p:column>
+					<p:column headerText="Orgão expedidor RG" width="15%"
+						sortBy="#{segurado.orgaoExpedidorRG}">
+						<h:outputText value="#{segurado.orgaoExpedidorRG}" />
+					</p:column>
+					<p:column headerText="Numero Habilitação" width="15%"
+						sortBy="#{segurado.numeroHabilitacao}">
+						<h:outputText value="#{segurado.numeroHabilitacao}" />
+					</p:column>
+					<p:column headerText="Tipo Habilitação" width="15%"
+						sortBy="#{segurado.tipoHablitacao}">
+						<h:outputText value="#{segurado.tipoHabilitacao}" />
+					</p:column>
+					<p:column headerText="Data Validade" width="15%"
+						sortBy="#{segurado.dataValidadeHabilitacao}">
+						<h:outputText value="#{segurado.dataValidadeHabilitacao}" />
+					</p:column>
+					<p:column headerText="Data Primeira Habilitação" width="15%"
+						sortBy="#{segurado.dataPimeiraHabilitacao}">
+						<h:outputText value="#{segurado.dataPrimeiraHabilitacao}" />
+					</p:column>
+					<p:column headerText="Logradouro" width="15%"
+						sortBy="#{segurado.logradouro}">
+						<h:outputText value="#{segurado.logradouro}" />
+					</p:column>
+					<p:column headerText="Numero " width="15%"
+						sortBy="#{segurado.numero}">
+						<h:outputText value="#{segurado.numero}" />
+					</p:column>
+					<p:column headerText="Complemento " width="15%"
+						sortBy="#{segurado.complemento}">
+						<h:outputText value="#{segurado.complemento}" />
+					</p:column>
+					<p:column headerText="Cep" width="15%" sortBy="#{segurado.cep}">
+						<h:outputText value="#{segurado.cep}" />
+					</p:column>
+					<p:column headerText="Bairro " width="15%"
+						sortBy="#{segurado.bairro}">
+						<h:outputText value="#{segurado.bairro}" />
+					</p:column>
+					<p:column headerText="Cidade " width="15%"
+						sortBy="#{segurado.cidade}">
+						<h:outputText value="#{segurado.cidade}" />
+					</p:column>
+					<p:column headerText="Estado " width="15%"
+						sortBy="#{segurado.estado}">
+						<h:outputText value="#{segurado.estado}" />
+					</p:column>-->
+					
+					<p:column headerText="Comandos" width="20%">
+						<div align="center">
+							<p:commandLink id="editar"
+								action="#{seguradomb.editar(segurado.id)}" value="Editar"
+								update="pesquisa" ajax="false" />
+							<h:outputText value=" " />
+							<p:commandLink id="excluir"
+								action="#{seguradomb.excluir(segurado.id)}" value="Excluir"
+								update="pesquisa" ajax="false">
+								<p:confirm header="Confirmação"
+									message="Você confirma a exclusão do Segurado #{segurado.nome}?"
+									icon="ui-icon-alert" />
+							</p:commandLink>
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Excluir" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Cancelar" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</div>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>

@@ -15,7 +15,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
@@ -36,7 +35,7 @@ import br.unibh.seguros.negocio.ServicoFuncionario;
 import br.unibh.seguros.negocio.ServicoSetor;
 import br.unibh.seguros.util.Resources;
 
-@Ignore
+
 @RunWith(Arquillian.class)
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TesteNegocioFuncionario {
@@ -76,7 +75,7 @@ public class TesteNegocioFuncionario {
 		public void teste02_inserirComErro() throws Exception {
 			log.info("============> Iniciando o teste " + Thread.currentThread().getStackTrace()[1].getMethodName());
 			try {
-				Funcionario o = new Funcionario(1L, "Joao Silva", "S", "07719687604@@", "(31)3340-2900", "(31)3340-2900", "(31)3340-2900", "teste@tese.com.br", new Date(), new Date(), null, null, "gilmar", "gilmarvagner", "gilmar123");
+				Funcionario o = new Funcionario(1L, "Joao Silva", null, "07719687604", "(31)3340-2900", "(31)3340-2900", "(31)3340-2900", "teste@tese.com.br", new Date(), new Date(), null, null, "gilmar", "gilmarvagner", "gilmar123");
 				sf.insert(o);
 			} catch (Exception e) {
 				assertTrue(checkString(e, "Caracteres permitidos: letras, espaços, ponto e aspas simples"));

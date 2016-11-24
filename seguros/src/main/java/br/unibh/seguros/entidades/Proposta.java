@@ -1,5 +1,6 @@
 package br.unibh.seguros.entidades;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
@@ -31,7 +32,8 @@ import org.hibernate.validator.constraints.NotBlank;
 @NamedQueries({
 		@NamedQuery(name = "Proposta.findByCodigoSusep", query = "select o from Proposta o where o.codigoSusep like :codigoSusep") })
 
-public class Proposta {
+public class Proposta implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +52,7 @@ public class Proposta {
 
 	@NotBlank
 	@Size(max = 15)
-	@Pattern(regexp = "[A-Z0-9 /-.]", message = "Não Permitido. COD-23PP")
+	@Pattern(regexp = "[A-Z0-9//.-]*", message = "Não Permitido. COD-23PP")
 	@Column(name = "codigo_susep", columnDefinition = "CHAR(15)", unique = true)
 	private String codigoSusep;
 
@@ -88,19 +90,19 @@ public class Proposta {
 	private int diaPagamento;
 
 	@NotBlank
-	@Pattern(regexp = "[A-zÀ-ú .']", message = "Não permitido. COD-24PP")
+	@Pattern(regexp = "[A-zÀ-ú .']*", message = "Não permitido. COD-24PP")
 	@Size(max = 50)
 	@Column(name = "banco_pagamento", length = 50, nullable = false)
 	private String bancoPagamento;
 
 	@NotBlank
-	@Pattern(regexp = "[A-zÀ-ú .']", message = "Não permitido. COD-25PP")
+	@Pattern(regexp = "[A-zÀ-ú .']*", message = "Não permitido. COD-25PP")
 	@Size(max = 15)
 	@Column(length = 15, nullable = false)
 	private String agencia;
 
 	@NotBlank
-	@Pattern(regexp = "[A-zÀ-ú .']", message = "Não Permitido. COD-26PP")
+	@Pattern(regexp = "[A-zÀ-ú .']*", message = "Não Permitido. COD-26PP")
 	@Size(max = 15)
 	@Column(length = 15, nullable = false)
 	private String conta;

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+	<ui:define name="content">
+		<h:form id="cad" rendered="#{propostamb.proposta != null}">
+			<h:panelGroup id="cadastro">
+				<p:panel>
+				
+				
+					<p:fieldset legend="Dados da Proposta" toggleable="true" toggleSpeed="500" style="font-size:18px font-weight:bold" >
+					<p:messages autoUpdate="true" closable="true" />
+					<p:panelGrid columns="3" styleClass="ui-noborder">
+					
+					
+				
+						
+						<p:outputLabel value="Data" />
+						<p:calendar id="data"
+							value="#{propostamb.proposta.data}" />					
+						<p:message for="data" errorClass="invalid" />
+						
+						<p:outputLabel value="Classe " />
+						<p:inputText id="classe" value="#{propostamb.proposta.classe}" size="50" />
+						<p:message for="classe" errorClass="invalid" />
+						
+						<p:outputLabel value="Codigo Susep" />
+						<p:inputText id="codigosusep" value="#{propostamb.proposta.codigoSusep}" size="20" />
+						<p:commandButton id="comandocodigosusep" action="#{propostamb.gerarCodigoSusep}"
+						value="Gerar Codigo Susep" update="cadastro" immediate="true"  ajax="true"/>
+						
+						<p:outputLabel value="Valor Segurado " />
+						<p:inputText id="valors" value="#{propostamb.proposta.valorSegurado}" size="50" />
+						<p:message for="valors" errorClass="invalid" />
+						
+						<p:outputLabel value="Valor Franquia " />
+						<p:inputText id="valorf" value="#{propostamb.proposta.valorFranquia}" size="50" />
+						<p:message for="valorf" errorClass="invalid" />
+						
+						<p:outputLabel value="Data inicio Vigencia " />
+						<p:calendar id="datai"
+							value="#{propostamb.proposta.dataInicioVigencia}" />					
+						<p:message for="datai" errorClass="invalid" />
+						
+						<p:outputLabel value="Data Termino Vigencia " />
+						<p:calendar id="datat"
+							value="#{propostamb.proposta.dataTerminoVigencia}" />
+						<p:message for="datat" errorClass="invalid" />
+						
+						<p:outputLabel value="Carancia em Meses " />
+						<p:inputText id="carencia" value="#{propostamb.proposta.carenciaEmMeses}" size="50" />
+						<p:message for="carencia" errorClass="invalid" />
+						
+						<p:outputLabel value="Valor Premio " />
+						<p:inputText id="valorp" value="#{propostamb.proposta.valorPremio}" size="50" />
+						<p:message for="valorp" errorClass="invalid" />
+						
+						<p:outputLabel value="Dia Pagamento " />
+						<p:calendar id="dia"
+							value="#{propostamb.proposta.diaPagamento}" />
+						<p:message for="dia" errorClass="invalid" />
+						
+						<p:outputLabel value="Banco Pagamento " />
+						<p:inputText id="banco" value="#{propostamb.proposta.bancoPagamento}" size="50" />
+						<p:message for="banco" errorClass="invalid" />
+						
+						<p:outputLabel value="Agencia " />
+						<p:inputText id="agencia" value="#{propostamb.proposta.agencia}" size="50" />
+						<p:message for="agencia" errorClass="invalid" />
+						
+						<p:outputLabel value="Conta " />
+						<p:inputText id="conta" value="#{propostamb.proposta.conta}" size="50" />
+						<p:message for="conta" errorClass="invalid" />
+						
+					</p:panelGrid>
+					
+					</p:fieldset>
+					
+					/*Dividindo*/
+					<p:fieldset legend="Dados do Veiculo" toggleable="true" toggleSpeed="500" style="font-size:18px font-weight:bold" >
+					<p:messages autoUpdate="true" closable="true" />
+					<p:panelGrid columns="3" styleClass="ui-noborder">
+					
+					
+					<p:outputLabel value="Veiculo " />
+						<p:inputText id="veiculo" value="#{veiculomb.veiculo.marca}" size="50" />
+						<p:message for="veiculo" errorClass="invalid" />
+						
+						<p:outputLabel value="Descricão " />
+						<p:inputText id="des" value="#{veiculomb.veiculo.descricao}" size="50" />
+						<p:message for="des" errorClass="invalid" />
+						
+						<p:outputLabel value="Ano Fabricação " />
+						<p:calendar id="datafab"
+							value="#{veiculomb.veiculo.anoFabricacao}" />					
+						<p:message for="datafab" errorClass="invalid" />
+						
+						<p:outputLabel value="Ano Modelo" />
+						<p:calendar id="datamod"
+							value="#{veiculomb.veiculo.anoModelo}" />					
+						<p:message for="datamod" errorClass="invalid" />
+						
+						<p:outputLabel value="Placa " />
+						<p:inputText id="placa" value="#{veiculomb.veiculo.placa}" size="50" />
+						<p:message for="placa" errorClass="invalid" />
+						
+						<p:outputLabel value="Chassi " />
+						<p:inputText id="chassi" value="#{veiculomb.veiculo.chassi}" size="50" />
+						<p:message for="chassi" errorClass="invalid" />
+						
+						<p:outputLabel value="Combustivel " />
+						<p:selectOneMenu id="console" value="" style="width:125px">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItem itemLabel="GASOLINA" itemValue="GASOLINA" />
+							<f:selectItem itemLabel="ALCOOL" itemValue="ALCOOL" />
+							
+						</p:selectOneMenu>
+						<p:message for="console" errorClass="invalid" />
+						<p:outputLabel for="console1" value="Zero KM ?" />
+						<p:selectOneRadio id="console1" value="#{veiculomb.veiculo.zeoKm}">
+           				 	
+          				  <f:selectItem itemLabel="Sim" itemValue="true" />
+          				  <f:selectItem itemLabel="Não" itemValue="false" />
+     					   </p:selectOneRadio>
+     					   <p:message for="console1" errorClass="invalid" />							
+							<p:outputLabel for="console2" value="Veiculo Alienado?" />
+							<p:selectOneRadio id="console2" value="#{veiculomb.veiculo.veiculoAlienado}">
+           				 	
+          				  <f:selectItem itemLabel="Sim" itemValue="true" />
+          				  <f:selectItem itemLabel="Não" itemValue="false" />
+     					   </p:selectOneRadio>
+							
+							
+							
+					</p:panelGrid>
+					</p:fieldset>
+					
+					
+					
+					<p:fieldset legend="Questionario " toggleable="true" toggleSpeed="500" style="font-size:18px font-weight:bold" >
+					<p:messages autoUpdate="true" closable="true" />
+					<p:panelGrid columns="3" styleClass="ui-noborder">
+					
+					
+					<p:message for="console3" errorClass="invalid" />							
+							<p:outputLabel for="console3" value="Condutor Principal?" />
+							<p:selectOneRadio id="console3" value="#{questionariomb.questionario.seguradoEPrincpalCondutor}">
+           				 	
+          				  <f:selectItem itemLabel="Sim" itemValue="true" />
+          				  <f:selectItem itemLabel="Não" itemValue="false" />
+     					   </p:selectOneRadio>
+     					   <p:message for="console3" errorClass="invalid" />
+					
+					<p:outputLabel value="Nome do condutor principal " />
+						<p:inputText id="nomec" value="#{questionariomb.questionario.nomeCondutorPrincipal}" size="50" />
+						<p:message for="nomec" errorClass="invalid" />
+						
+					
+					<p:outputLabel for="console4" value="Reside com pessoa de 17 a 25 anos ?" />
+							<p:selectOneRadio id="console4" value="#{questionariomb.questionario.resideComPessoa17A25Anos}">
+           				 	
+          				  <f:selectItem itemLabel="Sim" itemValue="true" />
+          				  <f:selectItem itemLabel="Não" itemValue="false" />
+     					   </p:selectOneRadio>
+     					   <p:message for="console4" errorClass="invalid" />
+					
+					
+					<p:outputLabel for="console5" value="Possui garagem na residencia ?" />
+							<p:selectOneRadio id="console5" value="#{questionariomb.questionario.possuiGaragemResidencia}">
+           				 	
+          				  <f:selectItem itemLabel="Sim" itemValue="true" />
+          				  <f:selectItem itemLabel="Não" itemValue="false" />
+     					   </p:selectOneRadio>
+     					   <p:message for="console5" errorClass="invalid" />
+					
+					
+					<p:outputLabel for="console6" value="Possui garagem no Trabalho ?" />
+							<p:selectOneRadio id="console6" value="#{questionariomb.questionario.possuiGaragenTrabalho}">
+           				 	
+          				  <f:selectItem itemLabel="Sim" itemValue="true" />
+          				  <f:selectItem itemLabel="Não" itemValue="false" />
+     					   </p:selectOneRadio>
+     					   <p:message for="console6" errorClass="invalid" />
+					
+					
+					<p:outputLabel for="console7" value="Possui garagem na faculdade ?" />
+							<p:selectOneRadio id="console7" value="#{questionariomb.questionario.possuiGaragemEstudo}">
+           				 	
+          				  <f:selectItem itemLabel="Sim" itemValue="true" />
+          				  <f:selectItem itemLabel="Não" itemValue="false" />
+     					   </p:selectOneRadio>
+     					   <p:message for="console7" errorClass="invalid" />
+     					   
+     					   
+     					   <p:outputLabel for="console8" value="Possui residencia propria ?" />
+							<p:selectOneRadio id="console8" value="#{questionariomb.questionario.residenciaPropria}">
+           				 	
+          				  <f:selectItem itemLabel="Sim" itemValue="true" />
+          				  <f:selectItem itemLabel="Não" itemValue="false" />
+     					   </p:selectOneRadio>
+     					   <p:message for="console8" errorClass="invalid" />
+     					   
+     					   
+     					   <p:outputLabel value="Quilometragem Atual " />
+						<p:inputText id="kma" value="#{questionariomb.questionario.quilometragemAtual}" size="50" />
+						<p:message for="kma" errorClass="invalid" />
+						
+						
+     					    <p:outputLabel for="console9" value="Utiliza veiculo para trabalho ?" />
+							<p:selectOneRadio id="console9" value="#{questionariomb.questionario.utilizaViculoAtividadesProfissionais}">
+           				 	
+          				  <f:selectItem itemLabel="Sim" itemValue="true" />
+          				  <f:selectItem itemLabel="Não" itemValue="false" />
+     					   </p:selectOneRadio>
+     					   <p:message for="console9" errorClass="invalid" />
+     					   
+     					   
+     					   
+     					   <p:outputLabel for="console91" value="Acidente ou roubo nos ultimos 2 anos ?" />
+							<p:selectOneRadio id="console91" value="#{questionariomb.questionario.acidenteOuRouboUltimos2Anos}">
+           				 	
+          				  <f:selectItem itemLabel="Sim" itemValue="true" />
+          				  <f:selectItem itemLabel="Não" itemValue="false" />
+     					   </p:selectOneRadio>
+     					   <p:message for="console91" errorClass="invalid" />
+					
+					
+					
+					<p:outputLabel for="console911" value="Possui dispositivo anti furto ?" />
+							<p:selectOneRadio id="console911" value="#{questionariomb.questionario.possuiDispositivoAntiFurto}">
+           				 	
+          				  <f:selectItem itemLabel="Sim" itemValue="true" />
+          				  <f:selectItem itemLabel="Não" itemValue="false" />
+     					   </p:selectOneRadio>
+     					   <p:message for="console911" errorClass="invalid" />
+					
+					
+					</p:panelGrid>
+					</p:fieldset>
+					<p:commandButton id="gravar" action="#{propostamb.gravar}"
+						value="Gravar" update="cadastro" ajax="false" />
+					<p:commandButton id="cancelar" action="#{propostamb.cancelar}"
+						value="Voltar" immediate="true" update="cadastro,pesquisa"
+						ajax="false" />
+				</p:panel>
+			</h:panelGroup>
+		</h:form>
+		<p:panel id="pesquisa" rendered="#{propostamb.proposta == null}">
+			<h:outputText value="Lista de Propostas"
+				style="font-size:18px;font-weight:bold" />
+			<h:form id="arg">
+			
+							
+			
+				<p:panelGrid columns="4" styleClass="ui-noborder">
+					<p:outputLabel value="Nome:" />
+					<p:inputText id="nomeArg" value="#{propostamb.nomeArg}" />
+					<p:commandButton id="pesquisar" action="#{propostamb.pesquisar}"
+						value="Pesquisar" update="pesquisa" ajax="false" />
+					<p:commandButton id="novo" action="#{propostamb.novo}" value="Novo"
+						update="pesquisa,cadastro" ajax="false" />
+				</p:panelGrid>
+				
+			</h:form>
+			<h:panelGroup rendered="#{empty propostamb.lista}">
+				<h:outputText value="Nenhum proposta existe" />
+			</h:panelGroup>
+			<h:form id="edt">
+				<p:messages autoUpdate="true" closable="true" />
+				<p:dataTable id="tabela" var="proposta" value="#{propostamb.lista}"
+					rendered="#{not empty propostamb.lista}"
+					onrowclick="selectRow('#{proposta.id}')" paginator="true" rows="15">
+					<p:column headerText="Id" width="10%" sortBy="#{proposta.id}">
+						<div align="center">
+							<h:outputText value="#{proposta.id}" />
+						</div>
+					</p:column>
+					<p:column headerText="Data" width="35%" sortBy="#{proposta.data}">
+						<h:outputText value="#{proposta.data}" />
+					</p:column>
+					<p:column headerText="Classe" width="15%" sortBy="#{proposta.classe}">
+						<h:outputText value="#{setor.sigla}" />
+					</p:column>
+					<p:column headerText="Valor do Segurado" width="35%" sortBy="#{proposta.valorSegurado}">
+						<h:outputText value="#{proposta.valorSegurado}" />
+					</p:column>
+					<p:column headerText="Valor do Franquia" width="35%" sortBy="#{proposta.valorFranquia}">
+						<h:outputText value="#{proposta.valorFranquia}" />
+					</p:column>
+					
+					<p:column headerText="Comandos" width="20%">
+						<div align="center">
+							<p:commandLink id="editar" action="#{propostamb.editar(proposta.id)}"
+								value="Editar" update="pesquisa" ajax="false" />
+							<h:outputText value=" " />
+							<p:commandLink id="excluir" action="#{propostamb.excluir(proposta.id)}"
+								value="Excluir" update="pesquisa" ajax="false">
+								<p:confirm header="Confirmação"
+									message="Você confirma a exclusão do setor #{setor.nome}?"
+									icon="ui-icon-alert" />
+							</p:commandLink>
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Excluir" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Cancelar" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+							
+						</div>
+						
+					</p:column>
+					
+					
+				</p:dataTable>
+			
+			</h:form>
+			
+		</p:panel>
+	</ui:define>
+</ui:composition>

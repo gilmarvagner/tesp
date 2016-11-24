@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+	<ui:define name="content">
+		<h:form id="cad" rendered="#{tramitacaomb.tramitacao != null}">
+			<h:panelGroup id="cadastro">
+				<p:panel>
+					<h:outputText value="Cadastro de Tramitacao"
+						style="font-size:18px;font-weight:bold" />
+					<p:messages autoUpdate="true" closable="true" />
+					<p:panelGrid columns="3" styleClass="ui-noborder">
+						<p:outputLabel value="Proposta " />
+						<p:inputText id="proposta"
+							value="#{tramitacaomb.tramitacao.proposta}" size="50" />
+						<p:message for="proposta" errorClass="invalid" />
+
+						<p:outputLabel value="Etapa Processo " />
+						<p:selectOneMenu id="console" value="" style="width:125px">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItem itemLabel="CRIADA" itemValue="CRIADA" />
+							<f:selectItem itemLabel="APROVADA" itemValue="APROVADA" />
+							<f:selectItem itemLabel="REPROVADA" itemValue="REPROVADA" />
+							<f:selectItem itemLabel="EMITIDA" itemValue="EMITIDA" />
+							<f:selectItem itemLabel="CANCELADA" itemValue="CANCELADA" />
+						</p:selectOneMenu>
+						<p:message for="console" errorClass="invalid" />
+
+						<p:outputLabel value="Data " />
+						<p:calendar id="datan" value="#{tramitacaomb.tramitacao.dataHora}" pattern="MM/dd/yyyy HH:mm:ss"/>
+						<p:message for="datan" errorClass="invalid"/>
+						<p:outputLabel value="Etapa Processo " />
+						<p:selectOneMenu id="consoleam" value="" style="width:125px">
+							<f:selectItem itemLabel="Selecione" itemValue="" />
+							<f:selectItem itemLabel="MANUAL" itemValue="MANUAL" />
+							<f:selectItem itemLabel="AUTOMATICA" itemValue="AUTOMATICA" />
+						</p:selectOneMenu>
+						<p:message for="consoleam" errorClass="invalid" />
+
+						<p:outputLabel value="Usuario " />
+						<p:selectOneMenu id="usuariod"
+							value="#{tramitacaomb.tramitacao.usuarioDecisao}" enableManualInput="true"
+							defaultLabel="digite para filtrar" converter="ConversorFuncionario">
+							<f:selectItem itemValue="#{null}" itemLabel="" />
+							<f:selectItems value="#{funcionariomb.lista}" var="funcionario"	itemValue="#{funcionario}" itemLabel="#{funcionario.nome}" />
+						</p:selectOneMenu>
+						<p:message for="usuariod" errorClass="invalid" />
+						</p:panelGrid>
+						
+						<p:commandButton id="gravar" action="#{tramitacaomb.gravar}"
+						value="Gravar" update="cadastro" ajax="false" />
+					<p:commandButton id="cancelar" action="#{tramitacaomb.cancelar}"
+						value="Voltar" immediate="true" update="cadastro,pesquisa"
+						ajax="false" />
+						
+				</p:panel>
+			</h:panelGroup>
+		</h:form>
+		<p:panel id="pesquisa" rendered="#{tramitacaomb.tramitacao == null}">
+			<h:outputText value="Lista de Tramitacao"
+				style="font-size:18px;font-weight:bold" />
+			<h:form id="arg">
+				<p:panelGrid columns="4" styleClass="ui-noborder">
+					<p:outputLabel value="Tramitacao:" />
+					<p:inputText id="nomeArg" value="#{tramitacaomb.nomeArg}" />
+					<p:commandButton id="pesquisar" action="#{tramitacaomb.pesquisar}"
+						value="Pesquisar" update="pesquisa" ajax="false" />
+					<p:commandButton id="novo" action="#{tramitacaomb.novo}"
+						value="Novo" update="pesquisa,cadastro" ajax="false" />
+				</p:panelGrid>
+			</h:form>
+			<h:form id="edt">
+				<p:messages autoUpdate="true" closable="true" />
+				<p:dataTable id="tabela" var="tramitacao"
+					value="#{tramitacaomb.lista}"
+					rendered="#{not empty tramitacaomb.lista}"
+					onrowclick="selectRow('#{tramitacao.id}')" paginator="true"
+					rows="15">
+					<p:column headerText="Id" width="10%" sortBy="#{tramitacao.id}">
+						<div align="center">
+							<h:outputText value="#{tramitacao.id}" />
+						</div>
+					</p:column>
+					<p:column headerText="ID" width="35%" sortBy="#{tramitacao.id}">
+						<h:outputText value="#{tramitacao.id}" />
+					</p:column>
+					<p:column headerText="Etapa do processo" width="15%"
+						sortBy="#{tramitacao.etapaProcesso}">
+						<h:outputText value="#{tramitacao.etapaProcesso}" />
+					</p:column>
+					<p:column headerText="Data Hora" width="35%"
+						sortBy="#{tramitacao.dataHora}">
+						<h:outputText value="#{tramitacao.dataHora}" />
+					</p:column>
+
+					<p:column headerText="Tipo Decisao" width="35%"
+						sortBy="#{tramitacao.tipoDecisao}">
+						<h:outputText value="#{tramitacao.tipoDecisao}" />
+					</p:column>
+
+					<p:column headerText="Usuario Decisao" width="35%"
+						sortBy="#{tramitacao.usuarioDecisao}">
+						<h:outputText value="#{tramitacao.usuarioDecisao}" />
+					</p:column>
+
+
+					<p:column headerText="Comandos" width="20%">
+						<div align="center">
+							<p:commandLink id="editar"
+								action="#{tramitacao.editar(tramitacao.id)}" value="Editar"
+								update="pesquisa" ajax="false" />
+							<h:outputText value=" " />
+							<p:commandLink id="excluir"
+								action="#{tramitacaomb.excluir(tramitacao.id)}" value="Excluir"
+								update="pesquisa" ajax="false">
+								<p:confirm header="Confirmação"
+									message="Você confirma a exclusão do tramitacao #{tramitacao.nome}?"
+									icon="ui-icon-alert" />
+							</p:commandLink>
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Excluir" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Cancelar" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</div>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>

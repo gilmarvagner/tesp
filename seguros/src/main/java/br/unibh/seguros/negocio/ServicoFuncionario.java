@@ -1,5 +1,6 @@
 package br.unibh.seguros.negocio;
 
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -22,6 +23,7 @@ public class ServicoFuncionario implements DAO<Funcionario, Long> {
 	@Override
 	public Funcionario insert(Funcionario t) throws Exception {
 		log.info("Persistindo " + t);
+		t.setDataCadastro(new Date());
 		em.persist(t);
 		return t;
 	}
